@@ -6,30 +6,15 @@ const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Statistic = ({ text, value }) => <div>{text} {value}</div>
 
-// not this delete later
-const ShowRating = ({ good, neutral, bad, all }) => {
-  if (all < 1)
+const Statistics = ({ goodRate, neutralRate, badRate, allRate }) => {
+  if (allRate < 1)
     return (<div>No feedback given</div>)
 
   return (
     <div>
-      <Statistic text="good" value={good} />
-      <Statistic text="neutral" value={neutral} />
-      <Statistic text="bad" value={bad} />
-      {/* <div>good {good}</div>
-      <div>neutral {neutral}</div>
-      <div>bad {bad}</div> */}
-    </div>
-  )
-}
-
-// change this
-const Statistics = ({ goodRate, badRate, allRate }) => {
-  if (allRate < 1)
-    return (<div></div>)
-
-  return (
-    <div>
+      <Statistic text="good" value={goodRate} />
+      <Statistic text="neutral" value={neutralRate} />
+      <Statistic text="bad" value={badRate} />
       <div>all {allRate}</div>
       <div>average {(goodRate - badRate) / allRate}</div>
       <div>positive {(goodRate / allRate) * 100}%</div>
@@ -75,12 +60,8 @@ const App = () => {
 
       <h1>statistics</h1>
       <div>
-        {/* Rating */}
-        <ShowRating good={good} neutral={neutral} bad={bad} all={all} />
-
-        {/* Accumulation */}
-        <Statistics goodRate={good} badRate={bad} allRate={all} />
-
+        {/* Display Result */}
+        <Statistics goodRate={good} neutralRate={neutral} badRate={bad} allRate={all} />
       </div>
     </div>
   )
