@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+
+const ShowRating = ({ good, neutral, bad, all }) => {
+  if (all < 1)
+    return (<div>No feedback given</div>)
+
+  return (
+    <div>
+      <div>good {good}</div>
+      <div>neutral {neutral}</div>
+      <div>bad {bad}</div>
+    </div>
+  )
+}
+
 const Statistics = ({ goodRate, badRate, allRate }) => {
   if (allRate < 1)
     return (<div></div>)
@@ -51,9 +65,7 @@ const App = () => {
       <h1>statistics</h1>
       <div>
         {/* Rating */}
-        <div>good {good}</div>
-        <div>neutral {neutral}</div>
-        <div>bad {bad}</div>
+        <ShowRating good={good} neutral={neutral} bad={bad} all={all} />
 
         {/* Accumulation */}
         <Statistics goodRate={good} badRate={bad} allRate={all} />
