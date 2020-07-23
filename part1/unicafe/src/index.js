@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Statistic = ({ text, value }) => {
@@ -12,6 +11,7 @@ const Statistic = ({ text, value }) => {
     </tr>
   )
 }
+
 const Statistics = ({ goodRate, neutralRate, badRate, allRate }) => {
   if (allRate < 1)
     return (<div>No feedback given</div>)
@@ -23,6 +23,7 @@ const Statistics = ({ goodRate, neutralRate, badRate, allRate }) => {
           <Statistic text="good" value={goodRate} />
           <Statistic text="neutral" value={neutralRate} />
           <Statistic text="bad" value={badRate} />
+
           <tr>
             <td>all</td>
             <td>{allRate}</td>
@@ -37,6 +38,7 @@ const Statistics = ({ goodRate, neutralRate, badRate, allRate }) => {
             <td>positive</td>
             <td>{(goodRate / allRate) * 100}%</td>
           </tr>
+
         </tbody>
       </table>
     </div>
@@ -65,7 +67,7 @@ const App = () => {
     else {
       // safety net
       console.log("Invalid Rating")
-      setAll(all)
+      setAll(all) // prevent setAll from adding
       return
     }
   }
