@@ -2,19 +2,28 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
+
+const Statistic = ({ text, value }) => <div>{text} {value}</div>
+
+// not this delete later
 const ShowRating = ({ good, neutral, bad, all }) => {
   if (all < 1)
     return (<div>No feedback given</div>)
 
   return (
     <div>
-      <div>good {good}</div>
+      <Statistic text="good" value={good} />
+      <Statistic text="neutral" value={neutral} />
+      <Statistic text="bad" value={bad} />
+      {/* <div>good {good}</div>
       <div>neutral {neutral}</div>
-      <div>bad {bad}</div>
+      <div>bad {bad}</div> */}
     </div>
   )
 }
 
+// change this
 const Statistics = ({ goodRate, badRate, allRate }) => {
   if (allRate < 1)
     return (<div></div>)
@@ -58,9 +67,11 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => ratingUpdate("good")}>good</button>
-      <button onClick={() => ratingUpdate("neutral")}>neutral</button>
-      <button onClick={() => ratingUpdate("bad")}>bad</button>
+
+      {/* Button Component */}
+      <Button onClick={() => ratingUpdate("good")} text="good" />
+      <Button onClick={() => ratingUpdate("neutral")} text="neutral" />
+      <Button onClick={() => ratingUpdate("bad")} text="bad" />
 
       <h1>statistics</h1>
       <div>
