@@ -2,15 +2,8 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const Statistics = ({ goodRate, badRate, allRate }) => {
-  if (allRate < 1) {
-    return (
-      <div>
-        <div>all {allRate}</div>
-        <div>average 0</div>
-        <div>positive 0%</div>
-      </div>
-    )
-  }
+  if (allRate < 1)
+    return (<div></div>)
 
   return (
     <div>
