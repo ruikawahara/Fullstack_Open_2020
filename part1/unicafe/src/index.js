@@ -4,20 +4,41 @@ import ReactDOM from 'react-dom';
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Statistic = ({ text, value }) => <div>{text} {value}</div>
-
+const Statistic = ({ text, value }) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
 const Statistics = ({ goodRate, neutralRate, badRate, allRate }) => {
   if (allRate < 1)
     return (<div>No feedback given</div>)
 
   return (
     <div>
-      <Statistic text="good" value={goodRate} />
-      <Statistic text="neutral" value={neutralRate} />
-      <Statistic text="bad" value={badRate} />
-      <div>all {allRate}</div>
-      <div>average {(goodRate - badRate) / allRate}</div>
-      <div>positive {(goodRate / allRate) * 100}%</div>
+      <table>
+        <tbody>
+          <Statistic text="good" value={goodRate} />
+          <Statistic text="neutral" value={neutralRate} />
+          <Statistic text="bad" value={badRate} />
+          <tr>
+            <td>all</td>
+            <td>{allRate}</td>
+          </tr>
+
+          <tr>
+            <td>average</td>
+            <td>{(goodRate - badRate) / allRate}</td>
+          </tr>
+
+          <tr>
+            <td>positive</td>
+            <td>{(goodRate / allRate) * 100}%</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
