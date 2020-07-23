@@ -8,23 +8,63 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  // accumulated result
+  const [all, setAll] = useState(0)
+
   // what happens when clicked
-  const goodButton = () => setGood(good + 1)
-  const neutralButton = () => setNeutral(neutral + 1)
-  const badButton = () => setBad(bad + 1)
+  const ratingUpdate = (rate) => {
+    setAll(all + 1)
+
+    if (rate === "good")
+      return setGood(good + 1)
+    else if (rate === "neutral")
+      return setNeutral(neutral + 1)
+    else if (rate === "bad")
+      return setBad(bad + 1)
+    else {
+      // safety net
+      console.log("Invalid Rating")
+      setAll(all)
+      return
+    }
+  }
+
+  const statistic = (goodRating, badRating, allRating) => {
+
+    if (allRating < 1) {
+      return (
+        <div>
+          <div>average 0</div>
+          <div>positive 0%</div>
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        <div>average {(goodRating - badRating) / allRating}</div>
+        <div>positive {(good / all) * 100} %</div>
+      </div>
+    )
+  }
 
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={goodButton}>good</button>
-      <button onClick={neutralButton}>neutral</button>
-      <button onClick={badButton}>bad</button>
+      <button onClick={() => ratingUpdate("good")}>good</button>
+      <button onClick={() => ratingUpdate("neutral")}>neutral</button>
+      <button onClick={() => ratingUpdate("bad")}>bad</button>
 
       <h1>statistics</h1>
       <div>
+        {/* Rating */}
         <div>good {good}</div>
         <div>neutral {neutral}</div>
         <div>bad {bad}</div>
+
+        {/* Accumulation */}
+        <div>all {all}</div>
+        <div>{statistic(good, bad, all)}</div>
       </div>
     </div>
   )
