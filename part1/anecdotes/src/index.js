@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const WinningAnecdote = ({ anecdotes, maxIdx, voteCount }) => {
-  console.log(voteCount.indexOf(Math.max(...voteCount)))
+const ShowAnecdote = ({ anecdotes, selected, voteCount }) => {
+  return (
+    <div>
+      <h2>Anecdote of the day</h2>
 
+      <div>{anecdotes[selected]}</div>
+      <div>has {voteCount[selected]} votes</div>
+    </div>
+  )
+}
+
+const WinningAnecdote = ({ anecdotes, maxIdx, voteCount }) => {
   return (
     <div>
       <h2>Anecdote with most votes</h2>
@@ -32,10 +41,7 @@ const App = ({ anecdotes, voteArray }) => {
 
   return (
     <div>
-      <h2>Anecdote of the day</h2>
-
-      <div>{anecdotes[selected]}</div>
-      <div>has {voteCount[selected]} votes</div>
+      <ShowAnecdote anecdotes={anecdotes} selected={selected} voteCount={voteCount} />
 
       <button onClick={updateVoteCount}>vote</button>
       <button onClick={() => randomize(anecdotes.length)}>next anecdote</button>
