@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+const WinningAnecdote = ({ anecdotes, maxIdx, voteCount }) => {
+  console.log(voteCount.indexOf(Math.max(...voteCount)))
+
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+      <div>{anecdotes[maxIdx]}</div>
+      <div>has {voteCount[maxIdx]} votes</div>
+    </div>
+  )
+}
+
 const App = ({ anecdotes, voteArray }) => {
   const [selected, setSelected] = useState(0)
   const [voteCount, setVoteCount] = useState(voteArray[0]) // init hook w/ empty array
@@ -20,11 +32,17 @@ const App = ({ anecdotes, voteArray }) => {
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
+
       <div>{anecdotes[selected]}</div>
       <div>has {voteCount[selected]} votes</div>
 
       <button onClick={updateVoteCount}>vote</button>
       <button onClick={() => randomize(anecdotes.length)}>next anecdote</button>
+
+      {/* getting max idx like done below is not good for larger array 
+          since array is small, this is feasible*/}
+      <WinningAnecdote anecdotes={anecdotes} maxIdx={voteCount.indexOf(Math.max(...voteCount))} voteCount={voteCount} />
     </div>
   )
 }
