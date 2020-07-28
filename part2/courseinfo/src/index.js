@@ -7,15 +7,17 @@ const Header = ({ name }) => {
   )
 }
 
+
+// now write with reduce
 const Total = ({ parts }) => {
-  let sum = 0
-  parts.map(part =>
-    sum += part.exercises
-  )
+
+  const sum = parts
+    .map(part => part.exercises)
+    .reduce((s, p) => s + p, 0)
 
   return (
     <strong>
-      <p>total of {sum} exercises</p>
+      <p>Total of {sum} exercises</p>
     </strong>
   )
 }
@@ -39,7 +41,6 @@ const Content = ({ parts }) => {
   )
 }
 
-// modify this
 const Course = ({ course }) => {
   return (
     <div>
