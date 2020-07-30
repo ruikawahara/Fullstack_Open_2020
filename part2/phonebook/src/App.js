@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ShowPersonInfo from './components/ShowPersonInfo'
 
 const App = () => {
 
@@ -38,6 +39,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
+      <ShowPersonInfo persons={persons} />
 
     </div>
   )
