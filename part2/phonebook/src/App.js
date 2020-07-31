@@ -39,6 +39,7 @@ const App = () => {
           <div>
             name: <input
               type="text"
+              placeholder="Your Name"
               value={newName}
               onChange={handleFormText}
               required
@@ -48,6 +49,8 @@ const App = () => {
           <div>
             number: <input
               type="tel"
+              pattern="[0-9\-]+"
+              placeholder="Your Number"
               value={newNumber}
               onChange={handleFormNumber}
               required
