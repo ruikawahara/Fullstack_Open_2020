@@ -17,12 +17,10 @@ const App = () => {
   const handleClick = (e) => {
     e.preventDefault()
 
-    if (persons.some(person => person.name === newName)) {
-      console.log('重複してんじゃねえよ、このダボ')
-    }
-    else {
+    if (persons.some(person => person.name === newName))
+      window.alert(`${newName} is already added to phonebook`)
+    else
       setPersons(persons.concat({ name: newName }))
-    }
 
     setNewName('')
   }
