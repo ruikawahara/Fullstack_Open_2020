@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 import ShowPersonInfo from './components/ShowPersonInfo'
 
 const App = () => {
@@ -37,50 +39,15 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with: <input
-          type="text"
-          placeholder="search"
-          value={searchName}
-          onChange={handleSearch}
-        />
-      </div>
+      <Filter searchName={searchName} handleSearch={handleSearch} />
 
-      <h2>add a new</h2>
-      <form onSubmit={handleClick}> {/* Moved handleClick here so input validation works */}
+      <h3>Add a new</h3>
+      <PersonForm handleClick={handleClick}
+        newName={newName} handleFormText={handleFormText}
+        newNumber={newNumber} handleFormNumber={handleFormNumber}
+      />
 
-        <div>
-          <div>
-            name: <input
-              type="text"
-              placeholder="Your Name"
-              value={newName}
-              onChange={handleFormText}
-              required
-            />
-          </div>
-
-          <div>
-            number: <input
-              type="tel"
-              pattern="[0-9\-]+"
-              placeholder="Your Number"
-              value={newNumber}
-              onChange={handleFormNumber}
-              required
-            />
-          </div>
-
-        </div>
-        <div>
-
-          {/* previous code. Does not do validation with empty input field */}
-          {/* <button type="submit" onClick={handleClick}>add</button> */}
-          <button type="submit">add</button>
-        </div>
-      </form>
-
-      <h2>Numbers</h2>
+      <h3>Numbers</h3>
       <ShowPersonInfo persons={persons} searchName={searchName} />
 
     </div>
