@@ -1,6 +1,7 @@
 import React from 'react'
 
 const ShowPersonInfo = ({ persons }) => {
+
     return (
         <div>
             {persons.map(person =>

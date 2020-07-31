@@ -16,7 +16,14 @@ const App = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    setPersons(persons.concat({ name: newName }))
+
+    if (persons.some(person => person.name === newName)) {
+      console.log('重複してんじゃねえよ、このダボ')
+    }
+    else {
+      setPersons(persons.concat({ name: newName }))
+    }
+
     setNewName('')
   }
 
@@ -25,7 +32,6 @@ const App = () => {
       <h2>Phonebook</h2>
       <form>
         <div>
-          <div>debug: {newName}</div>
 
           name: <input
             type="text"
