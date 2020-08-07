@@ -8,11 +8,19 @@ const DisplayAPI = ({ capital }) => {
     const api_key = process.env.REACT_APP_API_KEY
     const metricInfoAPI = `http://api.weatherstack.com/current?access_key=${api_key}&query=${capital}`
 
+    // let mounted to prevent unmount error
+    // source: https://www.debuggr.io/react-update-unmounted-component/
     const metricHook = () => {
+        let mounted = true;
+
         axios
             .get(metricInfoAPI)
-            .then(res => setMetricInfo(res.data.current))
-            .catch(err => console.log(err))
+            .then(res => {
+                if (mounted)
+                    setMetricInfo(res.data.current)
+            })
+
+        return () => mounted = false
     }
 
     useEffect(metricHook, [])
