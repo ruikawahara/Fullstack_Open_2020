@@ -3,6 +3,13 @@ import Filter from './components/Filter'
 import ShowDetail from './components/ShowDetail';
 import axios from "axios";
 
+/**
+ * Note: Assignment Spec specifies that
+ * the country with substring 
+ * (e.g. Sudan and South Sudan)
+ * will cause filter issue.
+ */
+
 const App = () => {
   // filter/search state
   const [countryName, setCountryName] = useState("")

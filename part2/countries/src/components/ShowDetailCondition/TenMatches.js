@@ -4,10 +4,23 @@
  */
 import React from 'react';
 
-const TenMatches = () => {
+const DisplayMatchName = ({ country }) => {
     return (
         <div>
-            There are more than 1 but less than 10 characters
+            {country}
+        </div>
+    )
+}
+
+const TenMatches = ({ filteredCountry }) => {
+    return (
+        <div>
+            {filteredCountry
+                .map(country =>
+                    <DisplayMatchName
+                        key={country.numericCode}
+                        country={country.name}
+                    />)}
         </div>
     )
 }

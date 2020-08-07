@@ -7,7 +7,7 @@ const Filter = ({ countryName, searchName }) => {
                 type="text"
                 value={countryName}
                 onChange={searchName}
-                placeholder="country name"
+                placeholder="Enter country name"
             />
         </div>
     )
