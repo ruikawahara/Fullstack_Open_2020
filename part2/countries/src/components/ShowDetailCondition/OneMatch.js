@@ -6,9 +6,7 @@
 import React from 'react'
 import "./OneMatch.css";
 
-const OneMatch = ({ filteredCountry }) => {
-    // guaranteed to have one element, so use idx 0
-    const countryObject = filteredCountry[0]
+const OneMatch = ({ countryObject }) => {
 
     return (
         <div>

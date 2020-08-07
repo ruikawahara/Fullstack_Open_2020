@@ -11,15 +11,6 @@ const ShowDetail = ({ countryName, countryInfo }) => {
     const filteredCountry = countryInfo
         .filter(country => matchName(country.name, countryName))
 
-    /**
-     * Conditions:
-     * 1) Default - No show
-     * 2) 1 < N <= 10 - show list of names
-     * 3) N == 1 - show detail
-     * 4) N > 10 - Display "Too many matches"
-     * 5) N == 0 - Display "No Match"
-     */
-
     if (countryName.length !== 0) {
 
         if (filteredCountry.length > 10) {
@@ -36,8 +27,9 @@ const ShowDetail = ({ countryName, countryInfo }) => {
             )
         }
         else if (filteredCountry.length === 1) {
+            // guaranteed to have one element, so use idx 0
             return (
-                <OneMatch filteredCountry={filteredCountry} />
+                <OneMatch countryObject={filteredCountry[0]} />
             )
         }
 

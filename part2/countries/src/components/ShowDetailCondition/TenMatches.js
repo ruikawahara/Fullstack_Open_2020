@@ -3,16 +3,21 @@
  * So it would have less code on the other file
  */
 import React from 'react';
+import ShowButton from './ShowButton'
 
 const DisplayMatchName = ({ country }) => {
+    // const [show, setShow] = useState(false)
+
     return (
         <div>
             {country}
+            <ShowButton />
         </div>
     )
 }
 
 const TenMatches = ({ filteredCountry }) => {
+
     return (
         <div>
             {filteredCountry
