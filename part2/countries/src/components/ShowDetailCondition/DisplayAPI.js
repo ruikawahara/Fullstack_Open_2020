@@ -24,14 +24,14 @@ const DisplayAPI = ({ capital }) => {
             <div>
                 <h3>Weather in {capital}</h3>
 
+                <div><strong>Temperature: </strong> {metricInfo.temperature} Celcius</div>
+
                 <div>
                     <img
                         src={metricInfo.weather_icons}
                         alt={`Temperature panel`}
                     />
                 </div>
-
-                <div><strong>Temperature: </strong> {metricInfo.temperature} Celcius</div>
 
                 <div><strong>Wind: </strong>{mph} mph direction {metricInfo.wind_dir}</div>
             </div>

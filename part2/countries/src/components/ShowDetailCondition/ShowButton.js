@@ -15,7 +15,7 @@ const ShowButton = ({ countryObject }) => {
 
     return (
         <div style={{ display: 'inline-block' }}>
-            <button onClick={() => setShow(!show)}>show</button>
+            <button onClick={() => setShow(!show)}>{show ? `Hide` : `Show`}</button>
             {show ? <OneMatch countryObject={countryObject} /> : ''}
         </div>
     )
