@@ -3,10 +3,27 @@
  * So it would have less code on the other file
  */
 
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import "./OneMatch.css";
+import axios from 'axios';
 
 const OneMatch = ({ countryObject }) => {
+    const [metricInfo, setMetricInfo] = useState([])
+
+    // from API
+    const api_key = process.env.REACT_APP_API_KEY
+    const metricInfoAPI = `http://api.weatherstack.com/current?access_key=${api_key}&query=${countryObject.capital}`
+
+    const metricHook = () => {
+        axios
+            .get(metricInfoAPI)
+            .then(res => setMetricInfo(res.data.current))
+    }
+
+    useEffect(metricHook, [])
+
+    const mph = Math
+        .round(parseInt(metricInfo.wind_speed) * 0.621371)
 
     return (
         <div>
@@ -36,6 +53,21 @@ const OneMatch = ({ countryObject }) => {
                     src={countryObject.flag}
                     alt={`flag of ${countryObject.name}`}
                 />
+            </div>
+
+            <div>
+                <h3>Weather in {countryObject.capital}</h3>
+
+                <div>
+                    <img
+                        src={metricInfo.weather_icons}
+                        alt={`Temperature panel`}
+                    />
+                </div>
+
+                <div><strong>Temperature: </strong> {metricInfo.temperature} Celcius</div>
+
+                <div><strong>Wind: </strong>{mph} mph direction {metricInfo.wind_dir}</div>
             </div>
         </div>
     )
