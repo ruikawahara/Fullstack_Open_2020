@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+import OneMatch from './OneMatch';
 
-const ShowButton = () => {
+const ShowButton = ({ countryObject }) => {
     const [show, setShow] = useState(false)
 
     return (
         <div style={{ display: 'inline-block' }}>
             <button onClick={() => setShow(!show)}>show</button>
-            {/* {`Current status: view is ${show ? 'on' : 'off'}`} */}
+            {show ? <OneMatch countryObject={countryObject} /> : ''}
         </div>
     )
 }

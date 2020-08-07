@@ -3,15 +3,13 @@
  * So it would have less code on the other file
  */
 import React from 'react';
-import ShowButton from './ShowButton'
+import ShowButton from './ShowButton';
 
 const DisplayMatchName = ({ country }) => {
-    // const [show, setShow] = useState(false)
-
     return (
         <div>
-            {country}
-            <ShowButton />
+            {country.name}
+            <ShowButton countryObject={country} />
         </div>
     )
 }
@@ -24,7 +22,7 @@ const TenMatches = ({ filteredCountry }) => {
                 .map(country =>
                     <DisplayMatchName
                         key={country.numericCode}
-                        country={country.name}
+                        country={country}
                     />)}
         </div>
     )
