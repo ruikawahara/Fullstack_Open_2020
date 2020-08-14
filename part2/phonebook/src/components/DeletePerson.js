@@ -1,14 +1,20 @@
 import React from 'react'
+import servicePerson from '../service/persons'
 
-const DeletePerson = ({ person }) => {
-    const removePerson = (e) => {
+const DeletePerson = ({ person, persons, setPersons }) => {
+    const removePerson = e => {
         e.preventDefault()
 
         const gotRemoved = window.confirm(`Delete ${person.name}?`)
-        if (gotRemoved)
-            console.log(`Removed ${person.name}`)
-        else
-            console.log(`${person.name} stays`)
+        if (gotRemoved) {
+            servicePerson
+                .deletePerson(person.id)
+                .then(setPersons(persons.filter(n => n.id !== person.id)))
+                .catch(err => {
+                    alert("That person is not in our database")
+                    console.log(err)
+                })
+        }
     }
 
     return (

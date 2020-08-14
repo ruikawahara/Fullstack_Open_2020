@@ -43,6 +43,7 @@ const App = () => {
     setNewNumber('')
   }
 
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -55,7 +56,10 @@ const App = () => {
       />
 
       <h3>Numbers</h3>
-      <ShowPersonInfo persons={persons} searchName={searchName} />
+      <ShowPersonInfo persons={persons}
+        searchName={searchName}
+        setPersons={setPersons}
+      />
 
     </div>
   )
