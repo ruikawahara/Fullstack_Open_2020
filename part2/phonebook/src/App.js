@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import ShowPersonInfo from './components/ShowPersonInfo'
-import axios from 'axios';
+// import axios from 'axios';
+import servicePerson from './service/persons'
 
 const App = () => {
 
@@ -11,11 +12,11 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
 
-  // get info with axios
+  // GET request
   const getDataHook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(res => setPersons(res.data))
+    servicePerson
+      .getAll()
+      .then(initPersons => setPersons(initPersons))
   }
 
   useEffect(getDataHook, [])
@@ -34,17 +35,17 @@ const App = () => {
     if (persons.some(person => person.name.toLowerCase() === newName.toLowerCase()))
       window.alert(`${newName} is already added to phonebook`)
     else {
-      // save to server
+      // POST request
       const newNoteObj = { name: newName, number: newNumber }
+      servicePerson.create(newNoteObj).then(returnedPerson =>
+        setPersons(persons.concat(returnedPerson))
+      )
 
-      axios
-        .post(`http://localhost:3001/persons`, newNoteObj)
-        .then(res => {
-          setPersons(persons.concat(res.data))
-        })
-        .catch(err =>
-          console.log('Cannot insert new item: ', err)
-        )
+      // axios
+      //   .post(`http://localhost:3001/persons`, newNoteObj)
+      //   .then(res => {
+      //     setPersons(persons.concat(res.data))
+      //   })
 
       // prev working code below 
       // setPersons(persons.concat({ name: newName, number: newNumber }))
