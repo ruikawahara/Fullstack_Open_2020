@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import ShowPersonInfo from './components/ShowPersonInfo'
-// import axios from 'axios';
 import servicePerson from './service/persons'
 
 const App = () => {
@@ -21,8 +20,6 @@ const App = () => {
 
   useEffect(getDataHook, [])
 
-
-
   // functions 
   const handleFormText = (e) => setNewName(e.target.value)
   const handleFormNumber = (e) => setNewNumber(e.target.value)
@@ -40,15 +37,6 @@ const App = () => {
       servicePerson.create(newNoteObj).then(returnedPerson =>
         setPersons(persons.concat(returnedPerson))
       )
-
-      // axios
-      //   .post(`http://localhost:3001/persons`, newNoteObj)
-      //   .then(res => {
-      //     setPersons(persons.concat(res.data))
-      //   })
-
-      // prev working code below 
-      // setPersons(persons.concat({ name: newName, number: newNumber }))
     }
 
     setNewName('')

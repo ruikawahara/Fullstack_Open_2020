@@ -1,4 +1,5 @@
 import React from 'react'
+import DeletePerson from './DeletePerson'
 
 const ShowPersonInfo = ({ persons, searchName }) => {
 
@@ -9,14 +10,19 @@ const ShowPersonInfo = ({ persons, searchName }) => {
     return (
         <div>
             {filteredPersons.map(person =>
-                <ShowOnePerson key={person.name}
-                    name={person.name}
-                    number={person.number}
+                <ShowOnePerson key={person.id}
+                    person={person}
                 />)}
         </div>
     )
 }
 
-const ShowOnePerson = ({ name, number }) => <div>{name} {number}</div>
+const ShowOnePerson = ({ person }) => {
+    return (
+        <div>
+            {person.name} {person.number} <DeletePerson person={person} />
+        </div>
+    )
+}
 
 export default ShowPersonInfo 
