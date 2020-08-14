@@ -42,6 +42,9 @@ const App = () => {
         .then(res => {
           setPersons(persons.concat(res.data))
         })
+        .catch(err =>
+          console.log('Cannot insert new item: ', err)
+        )
 
       // prev working code below 
       // setPersons(persons.concat({ name: newName, number: newNumber }))
