@@ -33,8 +33,19 @@ const App = () => {
     // no longer case sensitive 
     if (persons.some(person => person.name.toLowerCase() === newName.toLowerCase()))
       window.alert(`${newName} is already added to phonebook`)
-    else
-      setPersons(persons.concat({ name: newName, number: newNumber }))
+    else {
+      // save to server
+      const newNoteObj = { name: newName, number: newNumber }
+
+      axios
+        .post(`http://localhost:3001/persons`, newNoteObj)
+        .then(res => {
+          setPersons(persons.concat(res.data))
+        })
+
+      // prev working code below 
+      // setPersons(persons.concat({ name: newName, number: newNumber }))
+    }
 
     setNewName('')
     setNewNumber('')
