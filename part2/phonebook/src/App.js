@@ -32,13 +32,20 @@ const App = () => {
     if (persons.some(person => person.name.toLowerCase() === newName.toLowerCase())) {
       // PUT request
       const replaceNumber = window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`)
+
       if (replaceNumber) {
-        console.log("Replaced Number")
+        const changeTarget = persons.find(person => person.name === newName)
+        const changedPersons = { ...changeTarget, number: newNumber }
+
+        servicePerson
+          .update(changeTarget.id, changedPersons)
+          .then(modifiedPerson => {
+            setPersons(persons
+              .map(person =>
+                person.name !== newName ? person : modifiedPerson))
+          })
+
       }
-      else {
-        console.log("Stay Same")
-      }
-      // window.alert(`${newName} is already added to phonebook`)
     }
     else {
       // POST request
