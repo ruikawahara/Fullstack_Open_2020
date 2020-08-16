@@ -36,11 +36,6 @@
       "id": 7
     },
     {
-      "name": "Dio Brando",
-      "number": "03-3652-620",
-      "id": 8
-    },
-    {
       "name": "Giorno Giovanna",
       "number": "036-30320",
       "id": 9
@@ -51,29 +46,9 @@
       "id": 10
     },
     {
-      "name": "Mario Zucchero",
-      "number": "03-33003-030",
-      "id": 11
-    },
-    {
-      "name": "Narancia Ghirga",
-      "number": "369-003504",
-      "id": 12
-    },
-    {
-      "name": "Leone Abbachio",
-      "number": "036-998-035",
-      "id": 13
-    },
-    {
       "name": "Bruno Bucciarati",
       "number": "036-669-0365",
       "id": 14
-    },
-    {
-      "name": "Johnathan Joester",
-      "number": "03-6369-05652",
-      "id": 15
     }
   ]
 }

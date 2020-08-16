@@ -29,8 +29,17 @@ const App = () => {
     e.preventDefault()
 
     // no longer case sensitive 
-    if (persons.some(person => person.name.toLowerCase() === newName.toLowerCase()))
-      window.alert(`${newName} is already added to phonebook`)
+    if (persons.some(person => person.name.toLowerCase() === newName.toLowerCase())) {
+      // PUT request
+      const replaceNumber = window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`)
+      if (replaceNumber) {
+        console.log("Replaced Number")
+      }
+      else {
+        console.log("Stay Same")
+      }
+      // window.alert(`${newName} is already added to phonebook`)
+    }
     else {
       // POST request
       const newNoteObj = { name: newName, number: newNumber }
