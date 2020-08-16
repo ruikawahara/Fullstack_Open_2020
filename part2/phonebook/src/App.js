@@ -16,6 +16,10 @@ const App = () => {
     servicePerson
       .getAll()
       .then(initPersons => setPersons(initPersons))
+      .catch(err => {
+        alert('Error: Cannot Display ALL Items')
+        console.log(err)
+      })
   }
 
   useEffect(getDataHook, [])
@@ -44,15 +48,29 @@ const App = () => {
               .map(person =>
                 person.name !== newName ? person : modifiedPerson))
           })
+          .catch(err => {
+            alert(
+              `person "${changeTarget.name}" may be a duplicate or does not exist`
+            )
+            console.log(err)
+          })
 
       }
     }
     else {
       // POST request
-      const newNoteObj = { name: newName, number: newNumber }
-      servicePerson.create(newNoteObj).then(returnedPerson =>
-        setPersons(persons.concat(returnedPerson))
-      )
+      const newPersonObj = { name: newName, number: newNumber }
+      servicePerson.create(newPersonObj)
+        .then(returnedPerson =>
+          setPersons(persons.concat(returnedPerson))
+        )
+        .catch(err => {
+          alert(
+            `person "${newPersonObj.name}" cannot be created`
+          )
+
+          console.log(err)
+        })
     }
 
     setNewName('')
