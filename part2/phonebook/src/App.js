@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import ShowPersonInfo from './components/ShowPersonInfo'
 import servicePerson from './service/persons'
+import Notification from './components/Notification'
 
 const App = () => {
 
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+  const [submitMsg, setSubmitMsg] = useState(null)
 
   // GET request
   const getDataHook = () => {
@@ -81,6 +83,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification msg={submitMsg} />
       <Filter searchName={searchName} handleSearch={handleSearch} />
 
       <h3>Add a new</h3>
