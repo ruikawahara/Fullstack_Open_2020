@@ -1,7 +1,7 @@
 import React from 'react'
 import servicePerson from '../service/persons'
 
-const DeletePerson = ({ person, persons, setPersons }) => {
+const DeletePerson = ({ person, persons, setPersons, setErrMsg }) => {
     const removePerson = e => {
         e.preventDefault()
 
@@ -11,8 +11,14 @@ const DeletePerson = ({ person, persons, setPersons }) => {
                 .deletePerson(person.id)
                 .then(setPersons(persons.filter(n => n.id !== person.id)))
                 .catch(err => {
-                    alert("That person is not in our database")
-                    console.log(err)
+                    setErrMsg(
+                        `Information of ${person.name} has already been removed from server`
+                    )
+                    setTimeout(() => {
+                        setErrMsg(null)
+                    }, 5000)
+
+                    setPersons(persons.filter(n => n.id !== person.id))
                 })
         }
     }

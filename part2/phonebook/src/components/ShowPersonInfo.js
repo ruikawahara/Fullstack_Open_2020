@@ -1,7 +1,7 @@
 import React from 'react'
 import DeletePerson from './DeletePerson'
 
-const ShowPersonInfo = ({ persons, searchName, setPersons }) => {
+const ShowPersonInfo = ({ persons, searchName, setPersons, setErrMsg }) => {
 
     const filteredPersons = persons
         .filter(person => person.name.toLowerCase()
@@ -14,15 +14,16 @@ const ShowPersonInfo = ({ persons, searchName, setPersons }) => {
                     person={person}
                     persons={persons}
                     setPersons={setPersons}
+                    setErrMsg={setErrMsg}
                 />)}
         </div>
     )
 }
 
-const ShowOnePerson = ({ person, persons, setPersons }) => {
+const ShowOnePerson = ({ person, persons, setPersons, setErrMsg }) => {
     return (
         <div>
-            {person.name} {person.number} <DeletePerson person={person} persons={persons} setPersons={setPersons} />
+            {person.name} {person.number} <DeletePerson person={person} persons={persons} setPersons={setPersons} setErrMsg={setErrMsg} />
         </div>
     )
 }

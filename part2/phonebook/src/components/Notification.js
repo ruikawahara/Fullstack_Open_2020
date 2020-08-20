@@ -1,7 +1,7 @@
 import React from 'react'
 import '../index.css'
 
-const Notification = ({ msg }) => {
+const Sucses = ({ msg }) => {
     if (msg === null)
         return null
 
@@ -12,4 +12,15 @@ const Notification = ({ msg }) => {
     )
 }
 
-export default Notification
+const Err = ({ msg }) => {
+    if (msg === null)
+        return null
+
+    return (
+        <div className="error">
+            {msg}
+        </div>
+    )
+}
+
+export default { Sucses, Err } 

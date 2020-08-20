@@ -11,7 +11,9 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+
   const [submitMsg, setSubmitMsg] = useState(null)
+  const [errMsg, setErrMsg] = useState(null)
 
   // GET request
   const getDataHook = () => {
@@ -68,7 +70,7 @@ const App = () => {
           setSubmitMsg(`Added ${newName}`),
           setTimeout(() => {
             setSubmitMsg(null)
-          }, 700)
+          }, 2000)
         )
         .catch(err => {
           alert(
@@ -87,7 +89,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification msg={submitMsg} />
+      <Notification.Sucses msg={submitMsg} />
+      <Notification.Err msg={errMsg} />
       <Filter searchName={searchName} handleSearch={handleSearch} />
 
       <h3>Add a new</h3>
@@ -100,6 +103,7 @@ const App = () => {
       <ShowPersonInfo persons={persons}
         searchName={searchName}
         setPersons={setPersons}
+        setErrMsg={setErrMsg}
       />
 
     </div>
