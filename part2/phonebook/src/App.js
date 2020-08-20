@@ -64,7 +64,11 @@ const App = () => {
       const newPersonObj = { name: newName, number: newNumber }
       servicePerson.create(newPersonObj)
         .then(returnedPerson =>
-          setPersons(persons.concat(returnedPerson))
+          setPersons(persons.concat(returnedPerson)),
+          setSubmitMsg(`Added ${newName}`),
+          setTimeout(() => {
+            setSubmitMsg(null)
+          }, 700)
         )
         .catch(err => {
           alert(
