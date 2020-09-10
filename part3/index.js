@@ -24,6 +24,7 @@ let persons = [
     },
 ]
 
+// GET person
 app.get('/api/persons', (req, res) => res.json(persons))
 
 app.get('/api/persons/:id', (req, res) => {
@@ -37,6 +38,7 @@ app.get('/api/persons/:id', (req, res) => {
             .end()
 })
 
+// GET info
 app.get('/info', (req, res) => {
     const personsCount = persons.length
     //app.use(express.responseTime())
@@ -49,6 +51,13 @@ app.get('/info', (req, res) => {
             ${new Date()}
         </div>
     `)
+})
+
+// DELETE person
+app.delete('/api/persons/:id', (req, res) => {
+    persons = persons.filter(person => person.id !== parseInt(req.params.id))
+
+    res.status(204).end()
 })
 
 const PORT = 3001
