@@ -24,8 +24,20 @@ let persons = [
     },
 ]
 
-app.get('/api/persons', (req, res) => {
-    res.json(persons);
+app.get('/api/persons', (req, res) => res.json(persons))
+
+app.get('/info', (req, res) => {
+    const personsCount = persons.length
+    //app.use(express.responseTime())
+
+    res.send(`
+        <p>
+            Phonebook has info for ${personsCount} people
+        </p>
+        <div>
+            ${new Date()}
+        </div>
+    `)
 })
 
 const PORT = 3001
