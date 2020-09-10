@@ -26,6 +26,17 @@ let persons = [
 
 app.get('/api/persons', (req, res) => res.json(persons))
 
+app.get('/api/persons/:id', (req, res) => {
+    const person = persons.find(person => person.id === parseInt(req.params.id))
+
+    if (person)
+        res.json(person)
+    else
+        res.status(404)
+            .send(`Person with ID of number ${req.params.id} not found`)
+            .end()
+})
+
 app.get('/info', (req, res) => {
     const personsCount = persons.length
     //app.use(express.responseTime())
