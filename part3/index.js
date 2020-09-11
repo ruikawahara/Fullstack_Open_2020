@@ -54,13 +54,20 @@ app.post('/api/persons', (req, res) => {
 
     // if there is no name given
     if (!body.name) {
-        return response.status(400).json({
+        return res.status(400).json({
             error: 'Name missing'
         })
     }
+    // if no number given
     else if (!body.number) {
-        return response.status(400).json({
+        return res.status(400).json({
             error: 'Number missing'
+        })
+    }
+    // if name is duplicate
+    else if (persons.some(person => person.name === body.name)) {
+        return res.status(409).json({
+            error: 'Name must be unique'
         })
     }
 
@@ -70,7 +77,6 @@ app.post('/api/persons', (req, res) => {
         id: Math.floor(Math.random() * 1000)
     }
 
-    console.log(person)
     persons = persons.concat(person)
 
     res.json(person)
