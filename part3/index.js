@@ -1,5 +1,8 @@
 const express = require('express')
+const { response } = require('express')
 const app = express()
+
+app.use(express.json())
 
 let persons = [
     {
@@ -38,6 +41,41 @@ app.get('/api/persons/:id', (req, res) => {
             .end()
 })
 
+// DELETE person
+app.delete('/api/persons/:id', (req, res) => {
+    persons = persons.filter(person => person.id !== parseInt(req.params.id))
+
+    res.status(204).end()
+})
+
+// POST person
+app.post('/api/persons', (req, res) => {
+    const body = req.body
+
+    // if there is no name given
+    if (!body.name) {
+        return response.status(400).json({
+            error: 'Name missing'
+        })
+    }
+    else if (!body.number) {
+        return response.status(400).json({
+            error: 'Number missing'
+        })
+    }
+
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: Math.floor(Math.random() * 1000)
+    }
+
+    console.log(person)
+    persons = persons.concat(person)
+
+    res.json(person)
+})
+
 // GET info
 app.get('/info', (req, res) => {
     const personsCount = persons.length
@@ -51,13 +89,6 @@ app.get('/info', (req, res) => {
             ${new Date()}
         </div>
     `)
-})
-
-// DELETE person
-app.delete('/api/persons/:id', (req, res) => {
-    persons = persons.filter(person => person.id !== parseInt(req.params.id))
-
-    res.status(204).end()
 })
 
 const PORT = 3001
