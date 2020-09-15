@@ -50,6 +50,25 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end()
 })
 
+// GET info
+app.get('/info', (req, res) => {
+    const personsCount = persons.length
+    //app.use(express.responseTime())
+
+    res.send(`
+        <p>
+            Phonebook has info for ${personsCount} people
+        </p>
+        <div>
+            ${new Date()}
+        </div>
+    `)
+})
+
+// 3.8, show submitted data
+morgan.token('json', (req, res) => (JSON.stringify(req.body)))
+app.use(morgan(':json'))
+
 // POST person
 app.post('/api/persons', (req, res) => {
     const body = req.body
@@ -84,20 +103,6 @@ app.post('/api/persons', (req, res) => {
     res.json(person)
 })
 
-// GET info
-app.get('/info', (req, res) => {
-    const personsCount = persons.length
-    //app.use(express.responseTime())
-
-    res.send(`
-        <p>
-            Phonebook has info for ${personsCount} people
-        </p>
-        <div>
-            ${new Date()}
-        </div>
-    `)
-})
 
 const PORT = 3001
 app.listen(PORT, () => {
