@@ -66,7 +66,7 @@ app.get('/info', (req, res) => {
 })
 
 // 3.8, show submitted data
-morgan.token('json', (req, res) => (JSON.stringify(req.body)))
+morgan.token('json', req => (JSON.stringify(req.body)))
 app.use(morgan(':json'))
 
 // POST person
