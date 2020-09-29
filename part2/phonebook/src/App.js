@@ -51,7 +51,7 @@ const App = () => {
           .then(modifiedPerson => {
             setPersons(persons
               .map(person =>
-                person.name !== newName ? person : modifiedPerson))
+                person.name.toLowerCase() !== newName.toLowerCase() ? person : modifiedPerson)) //lower case compatibility
           })
           .catch(err => {
             alert(
