@@ -42,7 +42,8 @@ const App = () => {
       const replaceNumber = window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`)
 
       if (replaceNumber) {
-        const changeTarget = persons.find(person => person.name === newName)
+        //const changeTarget = persons.find(person => person.name === newName)
+        const changeTarget = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
         const changedPersons = { ...changeTarget, number: newNumber }
 
         servicePerson
