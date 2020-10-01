@@ -52,12 +52,22 @@ const App = () => {
             setPersons(persons
               .map(person =>
                 person.name.toLowerCase() !== newName.toLowerCase() ? person : modifiedPerson)) //lower case compatibility
+
+            setSubmitMsg(`Updated ${newName}'s phone number`)
+            setTimeout(() => {
+              setSubmitMsg(null)
+            }, 2000)
           })
           .catch(err => {
             alert(
-              `person "${changeTarget.name}" may be a duplicate or does not exist`
+              `person "${changeTarget.name}" may be a duplicate, does not meet requirement for update, and/or does not exist`
             )
-            console.log(err)
+
+            setErrMsg(`${err.response.data.err}`)
+            setTimeout(() => {
+              setErrMsg(null)
+            }, 3000)
+            // console.log(err)
           })
 
       }
