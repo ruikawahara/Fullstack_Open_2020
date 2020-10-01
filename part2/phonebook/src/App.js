@@ -82,7 +82,7 @@ const App = () => {
           setErrMsg(`${err.response.data.err}`)
           setTimeout(() => {
             setErrMsg(null)
-          }, 2000)
+          }, 3000)
           // console.log(err.response.data.err)
         })
     }
