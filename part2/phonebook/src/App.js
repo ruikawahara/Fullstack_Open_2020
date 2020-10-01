@@ -65,6 +65,7 @@ const App = () => {
     else {
       // POST request
       const newPersonObj = { name: newName, number: newNumber }
+
       servicePerson.create(newPersonObj)
         .then(returnedPerson =>
           setPersons(persons.concat(returnedPerson)),
@@ -78,7 +79,11 @@ const App = () => {
             `person "${newPersonObj.name}" cannot be created`
           )
 
-          console.log(err)
+          setErrMsg(`${err.response.data.err}`)
+          setTimeout(() => {
+            setErrMsg(null)
+          }, 2000)
+          // console.log(err.response.data.err)
         })
     }
 
