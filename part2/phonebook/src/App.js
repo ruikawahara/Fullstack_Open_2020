@@ -67,13 +67,13 @@ const App = () => {
       const newPersonObj = { name: newName, number: newNumber }
 
       servicePerson.create(newPersonObj)
-        .then(returnedPerson =>
-          setPersons(persons.concat(returnedPerson)),
-          setSubmitMsg(`Added ${newName}`),
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setSubmitMsg(`Added ${newName}`)
           setTimeout(() => {
             setSubmitMsg(null)
           }, 2000)
-        )
+        })
         .catch(err => {
           alert(
             `person "${newPersonObj.name}" cannot be created`
