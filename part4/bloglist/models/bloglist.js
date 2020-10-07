@@ -1,6 +1,8 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-const mongoUrl = 'mongodb://localhost/bloglist'
+// const mongoUrl = 'mongodb://localhost/bloglist'
+const mongoUrl = process.env.MONGODB_URI
 
 console.log('connecting to: ', mongoUrl)
 
