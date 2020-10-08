@@ -41,7 +41,7 @@ app.post('/api/blogs', (req, res) => {
 
 
 // endpoint and error handlers
-const unknownEndpoint = (req, res) => res.status(404).sent({ error: 'unknown endpoint' })
+const unknownEndpoint = (req, res) => res.status(404).send({ error: 'unknown endpoint' })
 app.use(unknownEndpoint)
 
 const errorHandler = (error, req, res, next) => {
