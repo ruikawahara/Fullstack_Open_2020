@@ -17,22 +17,13 @@ app.use(middleware.requestLogger)
 app.get('/', (req, res) => res.send('<h1>No front-end until part5</h1>'))
 
 /*
-// add DB entry
-app.post('/api/blogs', (req, res) => {
-    const blog = new Blog(req.body)
-
-    blog
-        .save()
-        .then(result => res.status(201).json(result))
-})
-*/
-
 // delete DB entry
 app.delete('/api/blogs/:id', (req, res, next) => {
     Blog.findByIdAndRemove(req.params.id)
         .then(() => res.status(204).end())
         .catch(error => next(error))
 })
+*/
 
 // update DB entry
 app.put('/api/blogs/:id', (req, res, next) => {

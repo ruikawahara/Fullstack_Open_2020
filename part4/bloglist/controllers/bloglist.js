@@ -30,4 +30,11 @@ bloglistRouter.post('/', (req, res, next) => {
         .catch(error => next(error))
 })
 
+// delete DB entry
+bloglistRouter.delete('/:id', (req, res, next) => {
+    Blog.findByIdAndRemove(req.params.id)
+        .then(() => res.status(204).end())
+        .catch(error => next(error))
+})
+
 module.exports = bloglistRouter
