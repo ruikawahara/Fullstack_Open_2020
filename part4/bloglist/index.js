@@ -40,6 +40,13 @@ app.post('/api/blogs', (req, res) => {
 })
 
 
+// delete DB entry
+app.delete('/api/blogs/:id', (req, res, next) => {
+    Blog.findByIdAndRemove(req.params.id)
+        .then(() => res.status(204).end())
+        .catch(error => next(error))
+})
+
 // endpoint and error handlers
 const unknownEndpoint = (req, res) => res.status(404).send({ error: 'unknown endpoint' })
 app.use(unknownEndpoint)
