@@ -17,19 +17,6 @@ app.use(middleware.requestLogger)
 app.get('/', (req, res) => res.send('<h1>No front-end until part5</h1>'))
 
 /*
-// view individual DB content
-app.get('/api/blogs/:id', (req, res, next) => {
-    Blog.findById(req.params.id)
-        .then(blog => {
-            if (blog)
-                res.json(blog)
-            else
-                res.status(404).end()
-        })
-        .catch(error => next(error))
-})
-*/
-
 // add DB entry
 app.post('/api/blogs', (req, res) => {
     const blog = new Blog(req.body)
@@ -38,6 +25,7 @@ app.post('/api/blogs', (req, res) => {
         .save()
         .then(result => res.status(201).json(result))
 })
+*/
 
 // delete DB entry
 app.delete('/api/blogs/:id', (req, res, next) => {

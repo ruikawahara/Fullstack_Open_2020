@@ -20,4 +20,14 @@ bloglistRouter.get('/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
+// add DB entry
+bloglistRouter.post('/', (req, res, next) => {
+    const blog = new Blog(req.body)
+
+    blog
+        .save()
+        .then(result => res.status(201).json(result))
+        .catch(error => next(error))
+})
+
 module.exports = bloglistRouter
