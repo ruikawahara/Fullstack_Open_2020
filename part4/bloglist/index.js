@@ -4,9 +4,13 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const Blog = require('./models/bloglist')
+const logger = require('./utils/logger')
+const middleware = require('./utils/middleware')
 
 app.use(cors())
 app.use(express.json())
+
+app.use(middleware.requestLogger)
 
 // default page
 app.get('/', (req, res) => res.send('<h1>No front-end until part5</h1>'))
@@ -62,6 +66,9 @@ app.put('/api/blogs/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
+/*
 // endpoint and error handlers
 const unknownEndpoint = (req, res) => res.status(404).send({ error: 'unknown endpoint' })
 app.use(unknownEndpoint)
@@ -77,8 +84,9 @@ const errorHandler = (error, req, res, next) => {
     next(error)
 }
 app.use(errorHandler)
+*/
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+    logger.info(`Server running on port ${PORT}`)
 })
