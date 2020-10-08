@@ -17,14 +17,6 @@ app.use(middleware.requestLogger)
 app.get('/', (req, res) => res.send('<h1>No front-end until part5</h1>'))
 
 /*
-// delete DB entry
-app.delete('/api/blogs/:id', (req, res, next) => {
-    Blog.findByIdAndRemove(req.params.id)
-        .then(() => res.status(204).end())
-        .catch(error => next(error))
-})
-*/
-
 // update DB entry
 app.put('/api/blogs/:id', (req, res, next) => {
     const body = req.body
@@ -40,6 +32,7 @@ app.put('/api/blogs/:id', (req, res, next) => {
         .then(updateBlog => res.json(updateBlog))
         .catch(error => next(error))
 })
+*/
 
 app.use('/api/blogs', bloglistRouter)
 

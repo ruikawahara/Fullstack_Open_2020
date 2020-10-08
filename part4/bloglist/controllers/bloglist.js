@@ -37,4 +37,21 @@ bloglistRouter.delete('/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
+// update DB entry.
+// No restriction for PUT req as of now, may added it later
+bloglistRouter.put('/:id', (req, res, next) => {
+    const body = req.body
+
+    const blog = {
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes,
+    }
+
+    Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
+        .then(updateBlog => res.json(updateBlog))
+        .catch(error => next(error))
+})
+
 module.exports = bloglistRouter
