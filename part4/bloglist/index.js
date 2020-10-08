@@ -39,11 +39,26 @@ app.post('/api/blogs', (req, res) => {
         .then(result => res.status(201).json(result))
 })
 
-
 // delete DB entry
 app.delete('/api/blogs/:id', (req, res, next) => {
     Blog.findByIdAndRemove(req.params.id)
         .then(() => res.status(204).end())
+        .catch(error => next(error))
+})
+
+// update DB entry
+app.put('/api/blogs/:id', (req, res, next) => {
+    const body = req.body
+
+    const blog = {
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes,
+    }
+
+    Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
+        .then(updateBlog => res.json(updateBlog))
         .catch(error => next(error))
 })
 
