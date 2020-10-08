@@ -19,7 +19,7 @@ app.get('/api/blogs', (req, res) => {
 })
 
 // view individual DB content
-app.get('/api/blogs/:id', (req, res) => {
+app.get('/api/blogs/:id', (req, res, next) => {
     Blog.findById(req.params.id)
         .then(blog => {
             if (blog)
@@ -27,10 +27,7 @@ app.get('/api/blogs/:id', (req, res) => {
             else
                 res.status(404).end()
         })
-        .catch(error => {
-            console.log(error)
-            res.status(500).end()
-        })
+        .catch(error => next(error))
 })
 
 // add DB entry
@@ -43,6 +40,21 @@ app.post('/api/blogs', (req, res) => {
 })
 
 
+// endpoint and error handlers
+const unknownEndpoint = (req, res) => res.status(404).sent({ error: 'unknown endpoint' })
+app.use(unknownEndpoint)
+
+const errorHandler = (error, req, res, next) => {
+    console.log(error.message)
+
+    if (error.name === 'CastError')
+        return res.status(400).send({ error: 'malformatted id' })
+    else if (error.name === 'ValidationError')
+        return res.status(400).json({ error: error.message })
+
+    next(error)
+}
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
