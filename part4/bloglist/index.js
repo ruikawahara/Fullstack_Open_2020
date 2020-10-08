@@ -16,16 +16,7 @@ app.use(middleware.requestLogger)
 // default page
 app.get('/', (req, res) => res.send('<h1>No front-end until part5</h1>'))
 
-
 /*
-// view entire DB conent
-app.get('/api/blogs', (req, res) => {
-    Blog
-        .find({})
-        .then(blogs => res.json(blogs))
-})
-*/
-
 // view individual DB content
 app.get('/api/blogs/:id', (req, res, next) => {
     Blog.findById(req.params.id)
@@ -37,6 +28,7 @@ app.get('/api/blogs/:id', (req, res, next) => {
         })
         .catch(error => next(error))
 })
+*/
 
 // add DB entry
 app.post('/api/blogs', (req, res) => {
