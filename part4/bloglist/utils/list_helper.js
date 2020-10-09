@@ -1,8 +1,9 @@
-const logger = require('./logger')
+// const logger = require('./logger')
 
 // practice testing
 const dummy = (blogs) => {
-    logger.info(blogs)
+    // logger.info(blogs)
+    blogs // place holder for practice
     return 1
 }
 
