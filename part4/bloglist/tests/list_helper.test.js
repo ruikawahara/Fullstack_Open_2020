@@ -1,9 +1,18 @@
-const totalLikes = require('../utils/list_helper').totalLikes
+const listHelper = require('../utils/list_helper')
+
+// dummy test
+test('dummy returns one', () => {
+    const blogs = []
+
+    const result = listHelper.dummy(blogs)
+    expect(result).toBe(1)
+})
+
 
 describe('total likes', () => {
 
     test('of empty list is zero', () => {
-        const result = totalLikes([])
+        const result = listHelper.totalLikes([])
         expect(result).toBe(0)
     })
 
@@ -19,7 +28,7 @@ describe('total likes', () => {
     ]
 
     test('when list has only one blog, equals the likes of that', () => {
-        const result = totalLikes(listWithOneBlog)
+        const result = listHelper.totalLikes(listWithOneBlog)
         expect(result).toBe(5)
     })
 
@@ -76,7 +85,7 @@ describe('total likes', () => {
 
     // 7 + 5 + 12 + 10 + 0 + 2 = 36
     test('of a bigger list is calculated right', () => {
-        const result = totalLikes(blogs)
+        const result = listHelper.totalLikes(blogs)
         expect(result).toBe(36)
     })
 })

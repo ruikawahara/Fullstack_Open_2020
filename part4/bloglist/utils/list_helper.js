@@ -7,7 +7,7 @@ const dummy = (blogs) => {
     return 1
 }
 
-// get sum of total likes from blog
+// return sum of likes
 const totalLikes = (blogs) => {
     // 0 or 1 blog entry
     if (blogs.length < 2) {
@@ -22,7 +22,14 @@ const totalLikes = (blogs) => {
         .reduce((acc, cur) => acc + cur)
 }
 
+// return blog with most likes
+const favoriteBlog = (blogs) => {
+    // 0 or 1 entry
+    blogs
+}
+
 module.exports = {
     dummy,
-    totalLikes
+    totalLikes,
+    favoriteBlog
 }
