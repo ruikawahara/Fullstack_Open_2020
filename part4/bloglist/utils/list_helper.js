@@ -16,6 +16,9 @@ const totalLikes = (blogs) => {
     }
 
     // if it has multiple blogs, return total likes
+    return blogs
+        .map(blog => blog.likes)
+        .reduce((acc, cur) => acc + cur)
 }
 
 module.exports = {
