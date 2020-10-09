@@ -25,7 +25,9 @@ const totalLikes = (blogs) => {
 // return blog with most likes
 const favoriteBlog = (blogs) => {
     // 0 or 1 entry
-    blogs
+    if (blogs.length < 2) {
+        return {}
+    }
 }
 
 module.exports = {
