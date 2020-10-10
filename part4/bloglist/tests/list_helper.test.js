@@ -34,24 +34,24 @@ describe('favorite blog', () => {
         expect(result).toEqual({})
     })
 
-    const oneBlogMatch = {
-        title: 'Go To Statement Considered Harmful',
-        author: 'Edsger W. Dijkstra',
-        likes: 5
-    }
     test('has same info when it has only one blog', () => {
+        const oneBlogMatch = {
+            title: 'Go To Statement Considered Harmful',
+            author: 'Edsger W. Dijkstra',
+            likes: 5
+        }
         const result = listHelper.favoriteBlog(listWithOneBlog)
         expect(result).toEqual(oneBlogMatch)
     })
 
-    /*
-    const bestBlogMatch = {
-        title: 'Canonical string reduction',
-        author: 'Edsger W. Dijkstra',
-        likes: 12,
-    }
     test('of bigger list gives blog info with most likes', () => {
-        console.log(bestBlogMatch)
+        const bestBlogMatch = {
+            title: 'Canonical string reduction',
+            author: 'Edsger W. Dijkstra',
+            likes: 12,
+        }
+
+        const result = listHelper.favoriteBlog(blogs)
+        expect(result).toEqual(bestBlogMatch)
     })
-    */
 })

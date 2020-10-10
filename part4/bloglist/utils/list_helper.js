@@ -24,10 +24,9 @@ const totalLikes = (blogs) => {
 
 // return blog with most likes
 const favoriteBlog = (blogs) => {
-    // empty
+
     if (blogs.length === 0)
         return {}
-    // only one entry
     else if (blogs.length === 1) {
         return {
             'title': blogs[0].title,
@@ -35,7 +34,19 @@ const favoriteBlog = (blogs) => {
             'likes': blogs[0].likes
         }
     }
-    // multiple entry
+    else {
+        const bestBlog = blogs.reduce((prev, current) => {
+            return current.likes > prev.likes
+                ? current
+                : prev
+        })
+
+        return {
+            'title': bestBlog.title,
+            'author': bestBlog.author,
+            'likes': bestBlog.likes
+        }
+    }
 
 }
 
