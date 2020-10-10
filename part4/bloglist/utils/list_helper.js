@@ -27,27 +27,18 @@ const favoriteBlog = (blogs) => {
 
     if (blogs.length === 0)
         return {}
-    else if (blogs.length === 1) {
-        return {
-            'title': blogs[0].title,
-            'author': blogs[0].author,
-            'likes': blogs[0].likes
-        }
-    }
     else {
         const bestBlog = blogs.reduce((prev, current) => {
             return current.likes > prev.likes
                 ? current
                 : prev
         })
-
         return {
             'title': bestBlog.title,
             'author': bestBlog.author,
             'likes': bestBlog.likes
         }
     }
-
 }
 
 module.exports = {
