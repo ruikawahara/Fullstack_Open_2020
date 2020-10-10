@@ -1,8 +1,7 @@
-// const logger = require('./logger')
+const _ = require('lodash')
 
 // practice testing
 const dummy = (blogs) => {
-    // logger.info(blogs)
     blogs // place holder for practice
     return 1
 }
@@ -24,7 +23,6 @@ const totalLikes = (blogs) => {
 
 // return blog with most likes
 const favoriteBlog = (blogs) => {
-
     if (blogs.length === 0)
         return {}
     else {
@@ -41,8 +39,19 @@ const favoriteBlog = (blogs) => {
     }
 }
 
+const mostBlogs = (blogs) => {
+    if (blogs.length === 0)
+        return {}
+    else {
+        const authors = _.countBy(blogs, 'author')
+        console.log(authors)
+        return {}
+    }
+}
+
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
 }
