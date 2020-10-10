@@ -24,10 +24,19 @@ const totalLikes = (blogs) => {
 
 // return blog with most likes
 const favoriteBlog = (blogs) => {
-    // 0 or 1 entry
-    if (blogs.length < 2) {
+    // empty
+    if (blogs.length === 0)
         return {}
+    // only one entry
+    else if (blogs.length === 1) {
+        return {
+            'title': blogs[0].title,
+            'author': blogs[0].author,
+            'likes': blogs[0].likes
+        }
     }
+    // multiple entry
+
 }
 
 module.exports = {
