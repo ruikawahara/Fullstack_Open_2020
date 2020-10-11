@@ -56,22 +56,22 @@ describe('favorite blog', () => {
     })
 })
 
-describe.only('most blogs', () => {
+describe('most blogs', () => {
     test('of empty list is empty object', () => {
         const result = listHelper.mostBlogs([])
         expect(result).toEqual({})
     })
 
-    test.only('of single entry list is itself', () => {
+    test('of single entry list is itself', () => {
         const result = listHelper.mostBlogs(listWithOneBlog)
         expect(result)
             .toEqual({
                 author: 'Edsger W. Dijkstra',
-                blogs: 3
+                blogs: 1
             })
     })
 
-    test.only('of multi entry list is author with most blogs written', () => {
+    test('of multi entry list is author with most blogs written', () => {
         const result = listHelper.mostBlogs(blogs)
         expect(result)
             .toEqual({

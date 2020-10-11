@@ -40,13 +40,14 @@ const favoriteBlog = (blogs) => {
 }
 
 const mostBlogs = (blogs) => {
-    if (blogs.length === 0)
-        return {}
-    else {
-        const authors = _.countBy(blogs, 'author')
-        console.log(authors)
-        return {}
-    }
+    const mostWritten = _.maxBy(blogs, 'author')
+
+    return (_.isUndefined(mostWritten))
+        ? {}
+        : {
+            author: mostWritten.author,
+            blogs: _.countBy(blogs, 'author')[mostWritten.author]
+        }
 }
 
 module.exports = {
