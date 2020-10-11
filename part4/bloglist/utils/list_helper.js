@@ -52,22 +52,27 @@ const mostBlogs = (blogs) => {
 
 const mostLikes = (blogs) => {
 
-    const authors = _.groupBy(blogs, 'author')
+    const formatBlog = _.map(blogs, item => _.pick(item, ['author', 'likes']))
+    const result = _(formatBlog)
+        .groupBy('author')
+        .map((val, key) => ({ author: key, likes: _.sumBy(val, 'likes') }))
+        .value()
 
-    if (!_.isEmpty(authors)) {
-        // _.forEach(authors, (val, key) => {
-        //     console.log('author:', key)
-        //     console.log('likes:', val)
-        // })
-        const result = _
-            .map(authors,
-                author => _.sumBy(author, blog => blog.likes)
-            )
+    const best = _.maxBy(result, 'likes')
 
-        console.log(result)
-    }
+    return (_.isUndefined(best))
+        ? {}
+        : best
 
-    return {}
+    // const authors = _.groupBy(blogs, 'author')
+
+    // if (!_.isEmpty(authors)) {
+
+    //     // const result = _
+    //     //     .map(authors, author => _.sumBy(author, blog => blog.likes))
+
+    //     // console.log(result)
+    // }
 }
 
 module.exports = {
