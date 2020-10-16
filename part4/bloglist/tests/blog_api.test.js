@@ -46,9 +46,10 @@ describe('GET Request - SINGLE', () => {
     })
 })
 
-describe.only('POST request', () => {
-    // ex 4.10
-    test.only('valid entry can be added', async () => {
+// ex 4.10
+describe('POST request - success', () => {
+
+    test('valid entry can be added', async () => {
         const newBlog = {
             title: 'The Paxos Algorithm or How to Win a Turing Award',
             author: 'Leslie Lamport',
@@ -67,6 +68,26 @@ describe.only('POST request', () => {
 
         const titles = blogObject.map(blog => blog.title)
         expect(titles).toContain('The Paxos Algorithm or How to Win a Turing Award')
+    })
+})
+
+describe.only('POST request - missing entry', () => {
+    let newBlog = {
+        title: 'The Paxos Algorithm or How to Win a Turing Award',
+        author: 'Leslie Lamport',
+        url: 'http://lamport.azurewebsites.net/tla/paxos-algorithm.html?back-link=more-stuff.html#paxos?unhideBut@EQhide-paxos@AMPunhideDiv@EQpaxos',
+        likes: 100
+    }
+
+    // ex 10.11
+    test('sets "likes" field to 0 when missing', async () => {
+        delete newBlog.likes // propagates to next test
+        console.log(newBlog)
+    })
+
+    // ex 10.12
+    test('returns 400 error when "title" and "url" fields are missing', async () => {
+        console.log(newBlog)
     })
 })
 
