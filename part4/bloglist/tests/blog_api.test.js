@@ -5,6 +5,7 @@ const app = require('../app')
 const api = supertest(app)
 const helper = require('./test_helper_blog')
 const Blog = require('../models/bloglist')
+const { initialBlogs } = require('./test_helper_blog')
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -55,12 +56,17 @@ describe.only('POST request', () => {
             likes: 100
         }
 
-        // const resultBlog = await api
         await api
             .post('/api/blogs')
             .send(newBlog)
             .expect(201)
             .expect('Content-Type', /application\/json/)
+
+        const res = await api.get('/api/blogs')
+        expect(res.body).toHaveLength(initialBlogs.length + 1)
+
+        const titles = res.body.map(blog => blog.title)
+        expect(titles).toContain('The Paxos Algorithm or How to Win a Turing Award')
     })
 })
 
