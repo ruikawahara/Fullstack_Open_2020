@@ -3,11 +3,8 @@ const Blog = require('../models/bloglist')
 
 // view entire DB conent
 bloglistRouter.get('/', async (req, res) => {
-    const getBlog = await Blog.find({})
-    res.json(getBlog)
-    // Blog
-    //     .find({})
-    //     .then(blogs => res.json(blogs))
+    const blogs = await Blog.find({})
+    res.json(blogs)
 })
 
 // view individual DB content
