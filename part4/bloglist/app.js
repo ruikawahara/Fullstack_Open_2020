@@ -15,8 +15,8 @@ mongoose.connect(config.MONGODB_URI, {
     useFindAndModify: false,
     useCreateIndex: true
 })
-    .then(() => console.log('connected to MongoDB'))
-    .catch((error) => console.error('error connecting to MongoDB: ', error.message))
+    .then(() => logger.info('connected to MongoDB'))
+    .catch((error) => logger.error('error connecting to MongoDB: ', error.message))
 
 app.use(cors())
 

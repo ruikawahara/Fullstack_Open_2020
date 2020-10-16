@@ -2,10 +2,12 @@ const bloglistRouter = require('express').Router()
 const Blog = require('../models/bloglist')
 
 // view entire DB conent
-bloglistRouter.get('/', (req, res) => {
-    Blog
-        .find({})
-        .then(blogs => res.json(blogs))
+bloglistRouter.get('/', async (req, res) => {
+    const getBlog = await Blog.find({})
+    res.json(getBlog)
+    // Blog
+    //     .find({})
+    //     .then(blogs => res.json(blogs))
 })
 
 // view individual DB content

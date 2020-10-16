@@ -41,8 +41,9 @@ const initialBlogs = [
 ]
 
 // return all contents of DB in json format
+// i.e. current DB status
 const blogsInDB = async () => {
-    const blogs = Blog.find({})
+    const blogs = await Blog.find({})
     return blogs.map(blog => blog.toJSON())
 }
 
