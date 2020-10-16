@@ -16,25 +16,16 @@ beforeEach(async () => {
 })
 
 describe.only('GET Request - ALL', () => {
-    test('blogs returned as JSON', async () => {
+    test('makes proper GET req and returns in JSON format.', async () => {
         await api
             .get('/api/blogs')
             .expect(200)
             .expect('Content-Type', /application\/json/)
     })
 
-    test('all blogs are returned', async () => {
+    test('returns correct number of blogs', async () => {
         const res = await api.get('/api/blogs')
         expect(res.body).toHaveLength(helper.initialBlogs.length)
-    })
-
-    test('have specific info within returned blogs', async () => {
-        const res = await api.get('/api/blogs')
-        const title = res.body.map(blog => blog.title)
-
-        expect(title).toContain(
-            'Go To Statement Considered Harmful'
-        )
     })
 })
 
