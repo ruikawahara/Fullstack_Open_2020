@@ -15,6 +15,7 @@ beforeEach(async () => {
     }
 })
 
+// ex 4.8
 describe('GET Request - ALL', () => {
     test('makes proper GET req and returns in JSON format.', async () => {
         await api
@@ -29,6 +30,7 @@ describe('GET Request - ALL', () => {
     })
 })
 
+// ex 4.9
 describe('GET Request - SINGLE', () => {
     test('return single existing blog', async () => {
         const blogStart = await helper.blogsInDB()
@@ -40,6 +42,25 @@ describe('GET Request - SINGLE', () => {
             .expect('Content-Type', /application\/json/)
 
         expect(resultBlog.body.id).toBeDefined()
+    })
+})
+
+describe.only('POST request', () => {
+    // ex 4.10
+    test.only('valid entry can be added', async () => {
+        const newBlog = {
+            title: 'The Paxos Algorithm or How to Win a Turing Award',
+            author: 'Leslie Lamport',
+            url: 'http://lamport.azurewebsites.net/tla/paxos-algorithm.html?back-link=more-stuff.html#paxos?unhideBut@EQhide-paxos@AMPunhideDiv@EQpaxos',
+            likes: 100
+        }
+
+        // const resultBlog = await api
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
     })
 })
 
