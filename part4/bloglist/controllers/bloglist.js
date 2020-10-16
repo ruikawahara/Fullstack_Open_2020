@@ -8,27 +8,12 @@ bloglistRouter.get('/', async (req, res) => {
 })
 
 // view individual DB content
-bloglistRouter.get('/:id', async (req, res, next) => {
-    try {
-        const singleBlog = await Blog.findById(req.params.id)
-        if (singleBlog)
-            res.json(singleBlog)
-        else
-            res.status(404).end()
-    }
-    catch (e) {
-        next(e)
-    }
-    /*
-    Blog.findById(req.params.id)
-        .then(blog => {
-            if (blog)
-                res.json(blog)
-            else
-                res.status(404).end()
-        })
-        .catch(error => next(error))
-    */
+bloglistRouter.get('/:id', async (req, res) => {
+    const singleBlog = await Blog.findById(req.params.id)
+    if (singleBlog)
+        res.json(singleBlog)
+    else
+        res.status(404).end()
 })
 
 // add DB entry

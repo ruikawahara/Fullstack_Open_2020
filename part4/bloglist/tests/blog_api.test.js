@@ -29,7 +29,7 @@ describe('GET Request - ALL', () => {
     })
 })
 
-describe.only('GET Request - SINGLE', () => {
+describe('GET Request - SINGLE', () => {
     test('return single existing blog', async () => {
         const blogStart = await helper.blogsInDB()
         const firstBlog = blogStart[0]
