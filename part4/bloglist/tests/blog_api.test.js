@@ -34,11 +34,12 @@ describe.only('GET Request - SINGLE', () => {
         const blogStart = await helper.blogsInDB()
         const firstBlog = blogStart[0]
 
-        // const resultBlog = await api
-        await api
+        const resultBlog = await api
             .get(`/api/blogs/${firstBlog.id}`)
             .expect(200)
             .expect('Content-Type', /application\/json/)
+
+        expect(resultBlog.body.id).toBeDefined()
     })
 })
 
