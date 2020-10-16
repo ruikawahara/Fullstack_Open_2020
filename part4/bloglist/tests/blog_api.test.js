@@ -62,10 +62,10 @@ describe.only('POST request', () => {
             .expect(201)
             .expect('Content-Type', /application\/json/)
 
-        const res = await api.get('/api/blogs')
-        expect(res.body).toHaveLength(initialBlogs.length + 1)
+        const blogObject = await helper.blogsInDB()
+        expect(blogObject).toHaveLength(initialBlogs.length + 1)
 
-        const titles = res.body.map(blog => blog.title)
+        const titles = blogObject.map(blog => blog.title)
         expect(titles).toContain('The Paxos Algorithm or How to Win a Turing Award')
     })
 })
