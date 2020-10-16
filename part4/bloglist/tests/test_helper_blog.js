@@ -40,6 +40,16 @@ const initialBlogs = [
     }
 ]
 
+// generate some ID, then delete
+// i.e. returns non existing ID
+const nonExistingID = async () => {
+    const tempBlog = await new Blog({ title: 'DummyBlog' })
+    await tempBlog.save()
+    await tempBlog.remove()
+
+    return tempBlog._id.toString()
+}
+
 // return all contents of DB in json format
 // i.e. current DB status
 const blogsInDB = async () => {
@@ -49,5 +59,6 @@ const blogsInDB = async () => {
 
 module.exports = {
     initialBlogs,
-    blogsInDB
+    blogsInDB,
+    nonExistingID
 }
