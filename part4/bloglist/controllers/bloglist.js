@@ -17,13 +17,15 @@ bloglistRouter.get('/:id', async (req, res) => {
 })
 
 // add DB entry
-bloglistRouter.post('/', (req, res, next) => {
+bloglistRouter.post('/', async (req, res) => {
     const blog = new Blog(req.body)
+    const savedBlog = await blog.save()
+    res.status(201).json(savedBlog)
 
-    blog
-        .save()
-        .then(result => res.status(201).json(result))
-        .catch(error => next(error))
+    // blog
+    //     .save()
+    //     .then(result => res.status(201).json(result))
+    //     .catch(error => next(error))
 })
 
 // delete DB entry
