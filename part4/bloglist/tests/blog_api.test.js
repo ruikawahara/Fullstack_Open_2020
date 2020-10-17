@@ -104,7 +104,7 @@ describe.only('POST request - missing entry', () => {
     })
 
     // ex 10.12
-    test.only('returns 400 error when "title" is missing', async () => {
+    test('returns 400 error when "title" is missing', async () => {
         delete newBlog.title
 
         await api
@@ -117,8 +117,17 @@ describe.only('POST request - missing entry', () => {
         expect(blogCount).toHaveLength(initialBlogs.length)
     })
 
-    test('returns 400 error when "url" is missing', async () => {
+    test.only('returns 400 error when "url" is missing', async () => {
         delete newBlog.url
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(400)
+
+        // double check - # of blogs should not have changed
+        const blogCount = await helper.blogsInDB()
+        expect(blogCount).toHaveLength(initialBlogs.length)
     })
 })
 
