@@ -83,7 +83,7 @@ describe.only('POST request - missing entry', () => {
     })
 
     // ex 10.11
-    test.only('sets "likes" field to 0 when missing', async () => {
+    test('sets "likes" field to 0 when missing', async () => {
         delete newBlog.likes
 
         await api
@@ -95,6 +95,7 @@ describe.only('POST request - missing entry', () => {
         const blogObject = await helper.blogsInDB()
         expect(blogObject).toHaveLength(initialBlogs.length + 1)
 
+        // last index should have blog that was added
         const getNewestBlog = blogObject.find(
             blog => blog.id === blogObject[initialBlogs.length].id
         )
@@ -103,11 +104,17 @@ describe.only('POST request - missing entry', () => {
     })
 
     // ex 10.12
-    test('returns 400 error when "title" and "url" fields are missing', async () => {
+    test.only('returns 400 error when "title" is missing', async () => {
         delete newBlog.title
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(400)
+    })
+
+    test('returns 400 error when "url" is missing', async () => {
         delete newBlog.url
-        console.log(newBlog)
-        console.log('---------------------END OF SECOND TEST-----------------------')
     })
 })
 
