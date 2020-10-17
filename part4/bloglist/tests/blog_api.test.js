@@ -72,22 +72,29 @@ describe('POST request - success', () => {
 })
 
 describe.only('POST request - missing entry', () => {
-    let newBlog = {
-        title: 'The Paxos Algorithm or How to Win a Turing Award',
-        author: 'Leslie Lamport',
-        url: 'http://lamport.azurewebsites.net/tla/paxos-algorithm.html?back-link=more-stuff.html#paxos?unhideBut@EQhide-paxos@AMPunhideDiv@EQpaxos',
-        likes: 100
-    }
+    let newBlog
+    beforeEach(() => {
+        newBlog = {
+            title: 'The Paxos Algorithm or How to Win a Turing Award',
+            author: 'Leslie Lamport',
+            url: 'http://lamport.azurewebsites.net/tla/paxos-algorithm.html?back-link=more-stuff.html#paxos?unhideBut@EQhide-paxos@AMPunhideDiv@EQpaxos',
+            likes: 100
+        }
+    })
 
     // ex 10.11
-    test('sets "likes" field to 0 when missing', async () => {
-        delete newBlog.likes // propagates to next test
+    test.only('sets "likes" field to 0 when missing', async () => {
+        delete newBlog.likes
         console.log(newBlog)
+        console.log('---------------------END OF FIRST TEST-----------------------')
     })
 
     // ex 10.12
     test('returns 400 error when "title" and "url" fields are missing', async () => {
+        delete newBlog.title
+        delete newBlog.url
         console.log(newBlog)
+        console.log('---------------------END OF SECOND TEST-----------------------')
     })
 })
 
