@@ -85,8 +85,21 @@ describe.only('POST request - missing entry', () => {
     // ex 10.11
     test.only('sets "likes" field to 0 when missing', async () => {
         delete newBlog.likes
-        console.log(newBlog)
-        console.log('---------------------END OF FIRST TEST-----------------------')
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const blogObject = await helper.blogsInDB()
+        expect(blogObject).toHaveLength(initialBlogs.length + 1)
+
+        const getNewestBlog = blogObject.find(
+            blog => blog.id === blogObject[initialBlogs.length].id
+        )
+
+        expect(getNewestBlog.likes).toBe(0)
     })
 
     // ex 10.12
