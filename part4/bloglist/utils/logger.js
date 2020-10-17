@@ -4,7 +4,7 @@ const info = (...params) => {
 }
 
 const error = (...params) => {
-    // // remove if when necessary
+    // // uncomment below for multi "failure" tests
     // if (process.env.NODE_ENV !== 'test')
     console.error(...params)
 }

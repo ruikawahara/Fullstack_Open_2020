@@ -71,7 +71,7 @@ describe('POST request - success', () => {
     })
 })
 
-describe.only('POST request - missing entry', () => {
+describe('POST request - missing entry', () => {
     let newBlog
     beforeEach(() => {
         newBlog = {
@@ -117,7 +117,7 @@ describe.only('POST request - missing entry', () => {
         expect(blogCount).toHaveLength(initialBlogs.length)
     })
 
-    test.only('returns 400 error when "url" is missing', async () => {
+    test('returns 400 error when "url" is missing', async () => {
         delete newBlog.url
 
         await api
