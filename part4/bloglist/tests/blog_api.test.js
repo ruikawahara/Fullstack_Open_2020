@@ -111,6 +111,10 @@ describe.only('POST request - missing entry', () => {
             .post('/api/blogs')
             .send(newBlog)
             .expect(400)
+
+        // double check - # of blogs should not have changed
+        const blogCount = await helper.blogsInDB()
+        expect(blogCount).toHaveLength(initialBlogs.length)
     })
 
     test('returns 400 error when "url" is missing', async () => {
