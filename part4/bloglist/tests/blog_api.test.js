@@ -151,7 +151,7 @@ describe.only('DELETE request - remove blog(s)', () => {
         expect(reducedBlogs).not.toContain(blogAtStart[0].title)
     })
 
-    test.only('remove all blogs and succeed with status code 204', async () => {
+    test('remove all blogs and succeed with status code 204', async () => {
         const blogAtStart = await helper.blogsInDB()
 
         for (const blog of blogAtStart) {
@@ -162,6 +162,14 @@ describe.only('DELETE request - remove blog(s)', () => {
 
         const blogAtEnd = await helper.blogsInDB()
         expect(blogAtEnd).toHaveLength(0)
+    })
+
+    test.only('fails with status code 404 if blog does not exist', async () => {
+        const nonExistingBlogID = await helper.nonExistingID()
+        console.log(nonExistingBlogID)
+    })
+
+    test('fails with status code 400 if id is invalid', async () => {
     })
 
 })

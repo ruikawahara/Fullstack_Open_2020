@@ -43,7 +43,7 @@ const initialBlogs = [
 // generate some ID, then delete
 // i.e. returns non existing ID
 const nonExistingID = async () => {
-    const tempBlog = await new Blog({ title: 'DummyBlog' })
+    const tempBlog = await new Blog({ title: 'DummyBlog', url: 'www.google.com' })
     await tempBlog.save()
     await tempBlog.remove()
 
