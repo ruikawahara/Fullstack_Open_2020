@@ -186,7 +186,7 @@ describe('DELETE request - remove blog(s)', () => {
 
 // ex 4.14
 describe.only('PUT request - update individual blog', () => {
-    test.only('Successfully updates "likes" field of blog', async () => {
+    test('Successfully updates "likes" field of blog', async () => {
         const blogAtStart = await helper.blogsInDB()
 
         await api
@@ -199,6 +199,19 @@ describe.only('PUT request - update individual blog', () => {
         expect(blogAtEnd[0].title).toBe(helper.initialBlogs[0].title)
         expect(blogAtEnd[0].id).toBe(blogAtStart[0].id)
         expect(blogAtEnd[0].likes).toBe(616)
+    })
+
+    test.only('Does not modify anything for updating fields other than "likes"', async () => {
+        const blogAtStart = await helper.blogsInDB()
+
+        await api
+            .put(`/api/blogs/${blogAtStart[0].id}`)
+            .send({ title: 'Different title', likes: 616 })
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const blogAtEnd = await helper.blogsInDB()
+        console.log(blogAtEnd[0])
     })
 })
 
