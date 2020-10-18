@@ -164,7 +164,7 @@ describe.only('DELETE request - remove blog(s)', () => {
         expect(blogAtEnd).toHaveLength(0)
     })
 
-    test.only('deletion of non-exsiting blog have no effect', async () => {
+    test('deletion of non-exsiting blog have no effect', async () => {
         const nonExistingBlogID = await helper.nonExistingID()
 
         await api
@@ -176,6 +176,10 @@ describe.only('DELETE request - remove blog(s)', () => {
     })
 
     test('fails with status code 400 if id is invalid', async () => {
+        const badID = 'xxxxxxxxxxx'
+        await api
+            .delete(`/api/blogs/${badID}`)
+            .expect(400)
     })
 
 })
