@@ -201,7 +201,7 @@ describe.only('PUT request - update individual blog', () => {
         expect(blogAtEnd[0].likes).toBe(616)
     })
 
-    test.only('Does not modify anything for updating fields other than "likes"', async () => {
+    test('Does not modify anything for updating fields other than "likes"', async () => {
         const blogAtStart = await helper.blogsInDB()
 
         await api
@@ -211,7 +211,9 @@ describe.only('PUT request - update individual blog', () => {
             .expect('Content-Type', /application\/json/)
 
         const blogAtEnd = await helper.blogsInDB()
-        console.log(blogAtEnd[0])
+        expect(blogAtEnd).toHaveLength(helper.initialBlogs.length)
+        expect(blogAtEnd[0].title).toBe(helper.initialBlogs[0].title)
+        expect(blogAtEnd[0].likes).not.toBe(helper.initialBlogs[0].likes)
     })
 })
 
