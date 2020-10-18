@@ -30,6 +30,7 @@ bloglistRouter.delete('/:id', async (req, res) => {
 })
 
 // update "likes" field of DB entry.
+// may need to add validator for put request here in future
 bloglistRouter.put('/:id', (req, res, next) => {
     const body = req.body
     const blog = { likes: body.likes }

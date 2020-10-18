@@ -215,6 +215,23 @@ describe.only('PUT request - update individual blog', () => {
         expect(blogAtEnd[0].title).toBe(helper.initialBlogs[0].title)
         expect(blogAtEnd[0].likes).not.toBe(helper.initialBlogs[0].likes)
     })
+
+    test.only('Non existing item not update anything', async () => {
+        const nonExistingBlogID = await helper.nonExistingID()
+        await api
+            .put(`/api/blogs/${nonExistingBlogID}`)
+            .send({ title: 'Intentional Error', likes: 616 })
+            .expect(200)
+
+        const currentBlogs = await helper.blogsInDB()
+        expect(currentBlogs).toHaveLength(helper.initialBlogs.length)
+
+        const titles = currentBlogs.map(blog => blog.title)
+        expect(titles).not.toContain('Intentional Error')
+
+        const likes = currentBlogs.map(blog => blog.likes)
+        expect(likes).not.toContain(616)
+    })
 })
 
 afterAll(() => {
