@@ -151,6 +151,19 @@ describe.only('DELETE request - remove blog(s)', () => {
         expect(reducedBlogs).not.toContain(blogAtStart[0].title)
     })
 
+    test.only('remove all blogs and succeed with status code 204', async () => {
+        const blogAtStart = await helper.blogsInDB()
+
+        for (const blog of blogAtStart) {
+            await api
+                .delete(`/api/blogs/${blog.id}`)
+                .expect(204)
+        }
+
+        const blogAtEnd = await helper.blogsInDB()
+        expect(blogAtEnd).toHaveLength(0)
+    })
+
 })
 
 afterAll(() => {
