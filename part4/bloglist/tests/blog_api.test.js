@@ -133,7 +133,7 @@ describe('POST request - missing entry', () => {
 })
 
 // ex 4.13
-describe.only('DELETE request - remove blog(s)', () => {
+describe('DELETE request - remove blog(s)', () => {
     test('succeed with status code 204 if ID is valid', async () => {
         const blogAtStart = await helper.blogsInDB()
 
@@ -182,6 +182,15 @@ describe.only('DELETE request - remove blog(s)', () => {
             .expect(400)
     })
 
+})
+
+// ex 4.14
+describe.only('PUT request - update individual blog', () => {
+    test.only('Successfully updates "likes" field of blog', async () => {
+
+        await api
+            .put()
+    })
 })
 
 afterAll(() => {

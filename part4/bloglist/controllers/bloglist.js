@@ -27,22 +27,18 @@ bloglistRouter.post('/', async (req, res) => {
 bloglistRouter.delete('/:id', async (req, res) => {
     await Blog.findByIdAndRemove(req.params.id)
     res.status(204).end()
-    // Blog.findByIdAndRemove(req.params.id)
-    //     .then(() => res.status(204).end())
-    //     .catch(error => next(error))
 })
 
-// update DB entry.
-// No restriction for PUT req as of now, may added it later
+// update "likes" field of DB entry.
 bloglistRouter.put('/:id', (req, res, next) => {
     const body = req.body
-
-    const blog = {
-        title: body.title,
-        author: body.author,
-        url: body.url,
-        likes: body.likes,
-    }
+    const blog = { likes: body.likes }
+    // const blog = {
+    //     title: body.title,
+    //     author: body.author,
+    //     url: body.url,
+    //     likes: body.likes,
+    // }
 
     Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
         .then(updateBlog => res.json(updateBlog))
