@@ -6,7 +6,6 @@ const api = supertest(app)
 const helper = require('./test_helper_blog')
 const Blog = require('../models/bloglist')
 const { initialBlogs } = require('./test_helper_blog')
-const { reduce } = require('lodash')
 
 beforeEach(async () => {
     await Blog.deleteMany({})
