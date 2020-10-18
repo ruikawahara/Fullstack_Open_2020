@@ -216,7 +216,7 @@ describe.only('PUT request - update individual blog', () => {
         expect(blogAtEnd[0].likes).not.toBe(helper.initialBlogs[0].likes)
     })
 
-    test.only('Non existing item not update anything', async () => {
+    test('Non existing item not update anything', async () => {
         const nonExistingBlogID = await helper.nonExistingID()
         await api
             .put(`/api/blogs/${nonExistingBlogID}`)
@@ -231,6 +231,14 @@ describe.only('PUT request - update individual blog', () => {
 
         const likes = currentBlogs.map(blog => blog.likes)
         expect(likes).not.toContain(616)
+    })
+
+    test.only('Malformatted ID will return 400 error', async () => {
+        const badID = 'xxx'
+        await api
+            .put(`/api/blogs/${badID}`)
+            .send({ title: 'Intentional Error', likes: 616 })
+            .expect(400)
     })
 })
 
