@@ -233,7 +233,7 @@ describe.only('PUT request - update individual blog', () => {
         expect(likes).not.toContain(616)
     })
 
-    test.only('Malformatted ID will return 400 error', async () => {
+    test('Malformatted ID will return 400 error', async () => {
         const badID = 'xxx'
         await api
             .put(`/api/blogs/${badID}`)

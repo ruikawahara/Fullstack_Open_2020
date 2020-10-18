@@ -31,19 +31,16 @@ bloglistRouter.delete('/:id', async (req, res) => {
 
 // update "likes" field of DB entry.
 // may need to add validator for put request here in future
-bloglistRouter.put('/:id', (req, res, next) => {
+bloglistRouter.put('/:id', async (req, res) => {
     const body = req.body
     const blog = { likes: body.likes }
-    // const blog = {
-    //     title: body.title,
-    //     author: body.author,
-    //     url: body.url,
-    //     likes: body.likes,
-    // }
 
-    Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
-        .then(updateBlog => res.json(updateBlog))
-        .catch(error => next(error))
+    const updateBlog = await Blog
+        .findByIdAndUpdate(req.params.id, blog, { new: true })
+    res.json(updateBlog)
+    // Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
+    //     .then(updateBlog => res.json(updateBlog))
+    //     .catch(error => next(error))
 })
 
 module.exports = bloglistRouter
