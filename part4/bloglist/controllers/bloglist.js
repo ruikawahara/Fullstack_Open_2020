@@ -38,9 +38,6 @@ bloglistRouter.put('/:id', async (req, res) => {
     const updateBlog = await Blog
         .findByIdAndUpdate(req.params.id, blog, { new: true })
     res.json(updateBlog)
-    // Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
-    //     .then(updateBlog => res.json(updateBlog))
-    //     .catch(error => next(error))
 })
 
 module.exports = bloglistRouter

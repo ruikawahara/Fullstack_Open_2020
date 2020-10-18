@@ -185,7 +185,7 @@ describe('DELETE request - remove blog(s)', () => {
 })
 
 // ex 4.14
-describe.only('PUT request - update individual blog', () => {
+describe('PUT request - update individual blog', () => {
     test('Successfully updates "likes" field of blog', async () => {
         const blogAtStart = await helper.blogsInDB()
 
