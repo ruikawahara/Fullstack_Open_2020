@@ -164,9 +164,15 @@ describe.only('DELETE request - remove blog(s)', () => {
         expect(blogAtEnd).toHaveLength(0)
     })
 
-    test.only('fails with status code 404 if blog does not exist', async () => {
+    test.only('deletion of non-exsiting blog have no effect', async () => {
         const nonExistingBlogID = await helper.nonExistingID()
-        console.log(nonExistingBlogID)
+
+        await api
+            .delete(`/api/blogs/${nonExistingBlogID}`)
+            .expect(204)
+
+        const allBlogs = await helper.blogsInDB()
+        expect(allBlogs).toHaveLength(helper.initialBlogs.length)
     })
 
     test('fails with status code 400 if id is invalid', async () => {
