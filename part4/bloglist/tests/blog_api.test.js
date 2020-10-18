@@ -131,6 +131,23 @@ describe('POST request - missing entry', () => {
     })
 })
 
+// ex 4.13
+describe.only('DELETE request - remove single entry', () => {
+    test.only('succeed with status code 204 if ID is valid', async () => {
+        const blogAtStart = await helper.blogsInDB()
+
+        // remove first blog
+        await api
+            .delete(`/api/blogs/${blogAtStart[0].id}`)
+            .expect(204)
+
+        // check if num of blogs is reduced by 1
+        const blogAtEnd = await helper.blogsInDB()
+        expect(blogAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+    })
+
+})
+
 afterAll(() => {
     mongooose.connection.close()
 })
