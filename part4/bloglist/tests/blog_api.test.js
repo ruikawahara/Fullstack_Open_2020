@@ -6,6 +6,7 @@ const api = supertest(app)
 const helper = require('./test_helper_blog')
 const Blog = require('../models/bloglist')
 const { initialBlogs } = require('./test_helper_blog')
+const { reduce } = require('lodash')
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -132,8 +133,8 @@ describe('POST request - missing entry', () => {
 })
 
 // ex 4.13
-describe.only('DELETE request - remove single entry', () => {
-    test.only('succeed with status code 204 if ID is valid', async () => {
+describe.only('DELETE request - remove blog(s)', () => {
+    test('succeed with status code 204 if ID is valid', async () => {
         const blogAtStart = await helper.blogsInDB()
 
         // remove first blog
@@ -144,6 +145,10 @@ describe.only('DELETE request - remove single entry', () => {
         // check if num of blogs is reduced by 1
         const blogAtEnd = await helper.blogsInDB()
         expect(blogAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+
+        // check if title of deleted item doesn't exist
+        const reducedBlogs = blogAtEnd.map(blog => blog.url)
+        expect(reducedBlogs).not.toContain(blogAtStart[0].title)
     })
 
 })
