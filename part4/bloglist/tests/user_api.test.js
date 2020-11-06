@@ -16,7 +16,7 @@ describe('Where there is at least one user in db', () => {
         await user.save()
     })
 
-    test.only('creation succeeds with new user', async () => {
+    test('creation succeeds with new user', async () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
@@ -38,6 +38,28 @@ describe('Where there is at least one user in db', () => {
         // check 'new user' is added to user DB
         const usernames = usersAtEnd.map(user => user.username)
         expect(usernames).toContain(newUser.username)
+    })
+
+    test.only('creation fails with right status code and msg if username is taken', async () => {
+        const usersAtStart = await helper.usersInDB()
+
+        const newUser = {
+            username: 'test',
+            name: 'failing test',
+            password: 'password123'
+        }
+
+        const result = await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        expect(result.body.error).toContain('`username` to be unique')
+
+        const usersAtEnd = await helper.usersInDB()
+        expect(usersAtEnd).toHaveLength(usersAtStart.length)
+
     })
 
     afterAll(() => {
