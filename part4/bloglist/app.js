@@ -6,6 +6,7 @@ const cors = require('cors')
 const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 const bloglistRouter = require('./controllers/bloglist')
+const userRouter = require('./controllers/users')
 const mongoose = require('mongoose')
 
 logger.info('connecting to: ', config.MONGODB_URI)
@@ -27,7 +28,8 @@ app.get('/', (req, res) => res.send('<h1>No front-end until part5</h1>'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
-app.use('/api/blogs', bloglistRouter)
+app.use('/api/blogs', bloglistRouter) // main content
+app.use('/api/users', userRouter) // all users using this apps
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
