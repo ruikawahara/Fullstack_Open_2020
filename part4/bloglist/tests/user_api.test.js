@@ -1,4 +1,4 @@
-// const mongooose = require('mongoose') // may not need this
+const mongoose = require('mongoose') // may not need this
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
@@ -38,5 +38,9 @@ describe('Where there is at least one user in db', () => {
         // check 'new user' is added to user DB
         const usernames = usersAtEnd.map(user => user.username)
         expect(usernames).toContain(newUser.username)
+    })
+
+    afterAll(() => {
+        mongoose.connection.close()
     })
 })

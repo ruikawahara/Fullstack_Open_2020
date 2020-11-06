@@ -1,5 +1,5 @@
 // Beginning of exercise 4.8-4.12
-const mongooose = require('mongoose')
+const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
@@ -242,5 +242,5 @@ describe('PUT request - update individual blog', () => {
 })
 
 afterAll(() => {
-    mongooose.connection.close()
+    mongoose.connection.close()
 })
