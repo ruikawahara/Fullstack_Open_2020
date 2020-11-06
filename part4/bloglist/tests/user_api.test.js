@@ -40,7 +40,7 @@ describe('Where there is at least one user in db', () => {
         expect(usernames).toContain(newUser.username)
     })
 
-    test.only('creation fails with right status code and msg if username is taken', async () => {
+    test('creation fails with right status code and msg if username is taken', async () => {
         const usersAtStart = await helper.usersInDB()
 
         const newUser = {
@@ -60,6 +60,16 @@ describe('Where there is at least one user in db', () => {
         const usersAtEnd = await helper.usersInDB()
         expect(usersAtEnd).toHaveLength(usersAtStart.length)
 
+    })
+
+    test.only('GET request to get (and display) all users', async () => {
+        const result = await api
+            .get('/api/users')
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const users = helper.usersInDB()
+        expect(result.body).toHaveLength(users.length)
     })
 
     afterAll(() => {
