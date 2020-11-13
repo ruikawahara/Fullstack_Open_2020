@@ -62,7 +62,7 @@ describe('Where there is at least one user in db', () => {
 
     })
 
-    test.only('GET request to get (and display) all users', async () => {
+    test('GET request to get (and display) all users', async () => {
         await api
             // await api
             .get('/api/users')
