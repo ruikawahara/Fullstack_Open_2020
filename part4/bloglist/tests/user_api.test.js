@@ -74,3 +74,142 @@ describe('Where there is at least one user in db', () => {
         mongoose.connection.close()
     })
 })
+
+describe.only('Where invalid users will not be added to the database', () => {
+    // initial database with 1 valid entry
+    beforeEach(async () => {
+        await User.deleteMany({})
+
+        const passwordHash = await bcrypt.hash('validPassword123', 10)
+        const user = new User({ username: 'test', passwordHash })
+
+        await user.save()
+    })
+
+    test.only('User without username will fail creation process with correct error message', async () => {
+        const userAtStart = await helper.usersInDB()
+
+        const newUser = {
+            name: 'Saitama',
+            password: 'OneManPunch'
+        }
+
+        // test right status code
+        await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(401)
+
+        // test that nothing was added to db
+        const userAtEnd = await helper.usersInDB()
+        expect(userAtEnd).toHaveLength(userAtStart.length)
+    })
+
+    test('Creation will fail if username has less than 3 characters', async () => {
+        const userAtStart = await helper.usersInDB()
+
+        const newUser = {
+            username: 'S',
+            name: 'Saitama',
+            password: 'OneManPunch123'
+        }
+
+        await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(401)
+
+        const userAtEnd = await helper.usersInDB()
+        expect(userAtEnd).toHaveLength(userAtStart.length)
+
+        // check if newUser's username is excluded
+        const allUsernames = userAtEnd.map(user => user.username)
+        expect(allUsernames).not.toContain('S')
+    })
+
+    test('Creation will fail if username is taken', async () => {
+        const userAtStart = await helper.usersInDB()
+
+        const newUser = {
+            username: 'test',
+            name: 'Different Test Guy',
+            password: 'DifferentPassword'
+        }
+
+        await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(401)
+
+        const userAtEnd = await helper.usersInDB()
+        expect(userAtEnd).toHaveLength(userAtStart.length)
+    })
+
+    test('User without password(hash) will fail creation process with appropriate error message', async () => {
+        const userAtStart = await helper.usersInDB()
+
+        const newUser = {
+            username: 'DCyborg',
+            name: 'Genos'
+        }
+
+        await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(403)
+
+        const userAtEnd = await helper.usersInDB()
+        expect(userAtEnd).toHaveLength(userAtStart.length)
+
+        const allUsernames = userAtEnd.map(user => user.username)
+        expect(allUsernames).not.toContain('DCyborg')
+    })
+
+    test('Creation will fail if password has less than 3 characters', async () => {
+        const userAtStart = await helper.usersInDB()
+
+        const newUser = {
+            username: 'DCyborg',
+            name: 'Genos',
+            password: 'ps'
+        }
+
+        await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(401)
+
+        const userAtEnd = await helper.usersInDB()
+        expect(userAtEnd).toHaveLength(userAtStart.length)
+
+        const allUsernames = userAtEnd.map(user => user.username)
+        expect(allUsernames).not.toContain('DCyborg')
+    })
+
+    test('Passing example', async () => {
+        const userAtStart = await helper.usersInDB()
+
+        const newUser = {
+            username: 'DCyborg',
+            name: 'Genos',
+            password: 'psa'
+        }
+
+        await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const userAtEnd = await helper.usersInDB()
+        expect(userAtEnd).toHaveLength(userAtStart.length + 1)
+
+        const allUsernames = userAtEnd.map(user => user.username)
+        expect(allUsernames).toContain('DCyborg')
+    })
+
+    // close all db connection when done
+    afterAll(() => {
+        mongoose.connection.close()
+    })
+})
