@@ -1,4 +1,4 @@
-const mongoose = require('mongoose') // may not need this
+const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
@@ -70,9 +70,9 @@ describe('Where there is at least one user in db', () => {
             .expect('Content-Type', /application\/json/)
     })
 
-    afterAll(() => {
-        mongoose.connection.close()
-    })
+    // afterAll(() => {
+    //     mongoose.connection.close()
+    // })
 })
 
 describe.only('Where invalid users will not be added to the database', () => {
@@ -95,10 +95,14 @@ describe.only('Where invalid users will not be added to the database', () => {
         }
 
         // test right status code
-        await api
+        const result = await api
             .post('/api/users')
             .send(newUser)
-            .expect(401)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        // error message
+        expect(result.body.error).toContain('`username` is required')
 
         // test that nothing was added to db
         const userAtEnd = await helper.usersInDB()
@@ -117,7 +121,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         await api
             .post('/api/users')
             .send(newUser)
-            .expect(401)
+            .expect(400)
 
         const userAtEnd = await helper.usersInDB()
         expect(userAtEnd).toHaveLength(userAtStart.length)
@@ -139,7 +143,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         await api
             .post('/api/users')
             .send(newUser)
-            .expect(401)
+            .expect(400)
 
         const userAtEnd = await helper.usersInDB()
         expect(userAtEnd).toHaveLength(userAtStart.length)
@@ -177,7 +181,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         await api
             .post('/api/users')
             .send(newUser)
-            .expect(401)
+            .expect(400)
 
         const userAtEnd = await helper.usersInDB()
         expect(userAtEnd).toHaveLength(userAtStart.length)
