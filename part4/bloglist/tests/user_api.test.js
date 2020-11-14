@@ -178,7 +178,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         expect(allUsernames).not.toContain('DCyborg')
     })
 
-    test.only('Creation will fail if password has less than 3 characters', async () => {
+    test('Creation will fail if password has less than 3 characters', async () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
@@ -187,10 +187,13 @@ describe.only('Where invalid users will not be added to the database', () => {
             password: 'ps'
         }
 
-        await api
+        const result = await api
             .post('/api/users')
             .send(newUser)
             .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        expect(result.body.error).toContain('bad password')
 
         const userAtEnd = await helper.usersInDB()
         expect(userAtEnd).toHaveLength(userAtStart.length)
@@ -203,7 +206,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
-            username: 'DCyborg',
+            username: 'DCG',
             name: 'Genos',
             password: 'psa'
         }
