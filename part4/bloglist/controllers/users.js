@@ -19,7 +19,8 @@ usersRouter.post('/', async (req, res) => {
 
     const savedUser = await user.save()
 
-    res.json(savedUser)
+    // added status(201) for unit test
+    res.status(201).json(savedUser)
 })
 
 usersRouter.get('/', async (req, res) => {

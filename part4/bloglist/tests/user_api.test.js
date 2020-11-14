@@ -221,7 +221,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         expect(userAtEnd).toHaveLength(userAtStart.length + 1)
 
         const allUsernames = userAtEnd.map(user => user.username)
-        expect(allUsernames).toContain('DCyborg')
+        expect(allUsernames).toContain('DCG')
     })
 
     // close all db connection when done
