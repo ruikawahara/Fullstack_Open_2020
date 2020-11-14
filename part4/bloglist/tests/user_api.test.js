@@ -86,7 +86,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         await user.save()
     })
 
-    test.only('User without username will fail creation process with correct error message', async () => {
+    test('User without username will fail creation process with correct error message', async () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
@@ -118,10 +118,13 @@ describe.only('Where invalid users will not be added to the database', () => {
             password: 'OneManPunch123'
         }
 
-        await api
+        const result = await api
             .post('/api/users')
             .send(newUser)
             .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        expect(result.body.error).toContain('shorter than the minimum allowed length (3)')
 
         const userAtEnd = await helper.usersInDB()
         expect(userAtEnd).toHaveLength(userAtStart.length)
@@ -131,7 +134,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         expect(allUsernames).not.toContain('S')
     })
 
-    test('Creation will fail if username is taken', async () => {
+    test.only('Creation will fail if username is taken', async () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
