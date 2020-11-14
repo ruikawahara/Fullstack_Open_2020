@@ -113,7 +113,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
-            username: 'S',
+            username: 'Sa',
             name: 'Saitama',
             password: 'OneManPunch123'
         }
@@ -134,7 +134,7 @@ describe.only('Where invalid users will not be added to the database', () => {
         expect(allUsernames).not.toContain('S')
     })
 
-    test.only('Creation will fail if username is taken', async () => {
+    test('Creation will fail if username is taken', async () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
@@ -143,16 +143,19 @@ describe.only('Where invalid users will not be added to the database', () => {
             password: 'DifferentPassword'
         }
 
-        await api
+        const result = await api
             .post('/api/users')
             .send(newUser)
             .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        expect(result.body.error).toContain('to be unique')
 
         const userAtEnd = await helper.usersInDB()
         expect(userAtEnd).toHaveLength(userAtStart.length)
     })
 
-    test('User without password(hash) will fail creation process with appropriate error message', async () => {
+    test.only('User without password(hash) will fail creation process with appropriate error message', async () => {
         const userAtStart = await helper.usersInDB()
 
         const newUser = {
