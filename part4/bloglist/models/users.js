@@ -8,9 +8,9 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         required: true
     },
-    // name: { type: String, required: true },
     name: String,
-    passwordHash: String,
+    // password validated in controller. This is fallback
+    passwordHash: { type: String, required: true },
     blogs: [
         {
             type: mongoose.Schema.Types.ObjectId,
